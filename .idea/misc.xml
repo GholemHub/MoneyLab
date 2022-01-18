@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/ALEX/KOTLIN/MoneyLab/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/ALEX/KOTLIN/MoneyLab/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21927083333333333" />
+        <entry key="..\:/ALEX/KOTLIN/MoneyLab/app/src/main/res/layout-land/activity_main.xml" value="0.17195767195767195" />
+        <entry key="..\:/ALEX/KOTLIN/MoneyLab/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/ALEX/KOTLIN/MoneyLab/app/src/main/res/menu/botom_navogation_bar.xml" value="0.21666666666666667" />
       </map>
     </option>
   </component>
