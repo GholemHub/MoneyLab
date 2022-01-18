@@ -3,7 +3,6 @@
 
 
 
-<<<<<<< HEAD
     <item android:id="@+id/fragmentChart"
           android:title="Charts"
           android:icon="@drawable/ic_baseline_bar_chart_24"/>
@@ -15,17 +14,4 @@
     <item android:id="@+id/fragmentPlaning"
           android:title="Planing"
           android:icon="@drawable/ic_baseline_data_saver_on_24"/>
-=======
-    <item android:id="@+id/Chart"
-          android:title="Chart"
-          android:icon="@drawable/ic_baseline_add_24"/>
-
-    <item android:id="@+id/Add"
-          android:title="Add"
-    />
-
-    <item android:id="@+id/Plan"
-          android:title="Plan"
-          android:icon="@drawable/ic_baseline_add_24"/>
->>>>>>> 58a18cea8357f455dedffe4f0af8483623bf22f2
 </menu>
