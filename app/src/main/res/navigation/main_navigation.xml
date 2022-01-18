@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_navigation"
+            app:startDestination="@id/fragmentAdd">
+
+    <fragment android:id="@+id/fragmentAdd" android:name="com.gholemhub.moneylab.FragmentAdd"
+              android:label="fragment_add" tools:layout="@layout/fragment_add">
+        <action android:id="@+id/action_fragmentAdd_to_fragmentHistory" app:destination="@id/fragmentHistory"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentHistory" android:name="com.gholemhub.moneylab.FragmentHistory"
+              android:label="fragment_history" tools:layout="@layout/fragment_history">
+        <action android:id="@+id/action_fragmentHistory_to_fragmentAdd" app:destination="@id/fragmentAdd"/>
+    </fragment>
+    <activity android:id="@+id/mainActivity" android:name="com.gholemhub.moneylab.MainActivity"
+              android:label="activity_main" tools:layout="@layout/activity_main"/>
+    <fragment android:id="@+id/fragmentChart" android:name="com.gholemhub.moneylab.FragmentChart"
+              android:label="fragment_chart" tools:layout="@layout/fragment_chart"/>
+    <fragment android:id="@+id/fragmentPlaning" android:name="com.gholemhub.moneylab.FragmentPlaning"
+              android:label="fragment_planing" tools:layout="@layout/fragment_planing"/>
+</navigation>
