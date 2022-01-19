@@ -6,22 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TableRow
 
-    <EditText
-
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:hint="Enter in value"
-            android:autofillHints="false"
-            android:textSize="36sp"
-            android:textAlignment="textEnd"
+            android:layout_margin="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout">
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000" tools:ignore="MissingConstraints"
+        />
+        <EditText
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:hint="Enter in value"
+                android:autofillHints="false"
+                android:textSize="36sp"
+                android:textAlignment="textEnd"
 
 
-            android:ems="10"
-            android:id="@+id/editTextNumber"
-            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-            app:layout_constraintEnd_toEndOf="parent"/>
+                android:ems="10"
+                android:id="@+id/inputText"
+                />
+    </TableRow>
+
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:gravity="center"
@@ -48,7 +62,7 @@
                     android:textSize="24sp"
                     android:textColor="@color/purple_500"
 
-            />
+                    android:onClick="btnListener_clear"/>
             <Button
                     android:text="@string/btn_devide"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -77,7 +91,7 @@
                     android:layout_height="match_parent" android:id="@+id/button5"
                     app:srcCompat="@drawable/backspace"
                     app:tint="@color/purple_200"
-            />
+                    android:onClick="btnListener_backspace"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
 
@@ -90,7 +104,7 @@
                     android:layout_height="60dp" android:id="@+id/button7"
                     android:textSize="24sp"
                     android:textColor="@color/purple_500"
-            />
+                    android:onClick="btnListener_seven"/>
             <Button
                     android:text="@string/btn8"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -99,7 +113,7 @@
                     android:layout_height="60dp" android:id="@+id/button8"
                     android:textSize="24sp"
                     android:textColor="@color/purple_500"
-            />
+                    android:onClick="btnListener_eight"/>
             <Button
                     android:text="@string/btn9"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -108,7 +122,7 @@
                     android:layout_height="60dp" android:id="@+id/button9"
                     android:textSize="24sp"
                     android:textColor="@color/purple_500"
-            />
+                    android:onClick="btnListener_nine"/>
 
             <RelativeLayout
                     android:text="@string/btn_plus"
@@ -141,7 +155,7 @@
                     android:layout_height="60dp" android:id="@+id/button11"
 
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_four"/>
             <Button
                     android:text="@string/btn5"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -149,7 +163,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button12"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_five"/>
             <Button
                     android:text="@string/btn6"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -157,7 +171,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button13"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_six"/>
             <RelativeLayout
                     android:text="@string/btn_plus"
                     android:layout_weight="1"
@@ -188,7 +202,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button15"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_one"/>
             <Button
                     android:text="@string/btn2"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -196,7 +210,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button16"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_two"/>
             <Button
                     android:text="@string/btn3"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -204,7 +218,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button17"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_three"/>
             <RelativeLayout android:layout_height="60dp"
 
                             android:layout_weight="1"
@@ -234,7 +248,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button19"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_zero"/>
             <Button
                     android:text="@string/btn00"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -242,7 +256,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp" android:id="@+id/button20"
                     android:textSize="24sp"
-                    android:textColor="@color/purple_500"/>
+                    android:textColor="@color/purple_500" android:onClick="btnListener_zero_zero"/>
             <Button
                     android:text="@string/btn_Dot"
                     style="@style/Widget.AppCompat.Button.Borderless"
@@ -267,5 +281,6 @@
             </RelativeLayout>
         </TableRow>
     </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
