@@ -78,15 +78,16 @@ private fun updateText(newStr: String){
 
     fun btnListener_backspace(View: View){
 
-        var cursorePos = binding.inputText.selectionStart
+        var cursorPos = binding.inputText.selectionStart
         var textLen = binding.inputText.text.length
 
-        if(cursorePos != 0 && textLen != 0){
-            var selection = binding.inputText.text.toSpannable()
+        if(cursorPos != 0 && textLen != 0){
 
-            selection.replaceRange(cursorePos-1, cursorePos, "")
+            val selection = binding.inputText.text as SpannableStringBuilder
+            selection.replace(cursorPos - 1, cursorPos, "")
             binding.inputText.setText(selection)
-            binding.inputText.setSelection(cursorePos -1)
+            binding.inputText.setSelection(cursorPos - 1)
+
 
         }
     }
