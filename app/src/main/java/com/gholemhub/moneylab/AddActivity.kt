@@ -2,7 +2,9 @@ package com.gholemhub.moneylab
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log.d
 import android.view.View
+import org.mariuszgromada.math.mxparser.*
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.toSpannable
@@ -12,6 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
+import java.lang.Exception
 
 class AddActivity : AppCompatActivity() {
 
@@ -76,6 +79,39 @@ private fun updateText(newStr: String){
         binding.inputText.setText("")
     }
 
+    fun btnListener_Plus(View: View){
+        updateText("+")
+    }
+
+    fun btnListener_Minuse(View: View){
+        updateText("-")
+    }
+
+    fun btnListener_Multiplication(View: View){
+        updateText("×")
+    }
+
+    fun btnListener_Division(View: View){
+        updateText("/")
+    }
+
+    fun btnListener_Dot(View: View){
+        updateText(".")
+    }
+
+    fun btnListener_Equel(View: View){
+        var str = binding.inputText.text.toString()
+
+        str = str.replace("×", "*")
+
+        var exp: Expression = Expression(str)
+
+        var res = exp.calculate().toString()
+        binding.inputText.setText(res)
+        binding.inputText.setSelection(res.length)
+
+    }
+
     fun btnListener_backspace(View: View){
 
         var cursorPos = binding.inputText.selectionStart
@@ -87,9 +123,9 @@ private fun updateText(newStr: String){
             selection.replace(cursorPos - 1, cursorPos, "")
             binding.inputText.setText(selection)
             binding.inputText.setSelection(cursorPos - 1)
-
-
         }
     }
+
+
 
 }
