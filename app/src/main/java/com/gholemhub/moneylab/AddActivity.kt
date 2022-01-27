@@ -31,6 +31,13 @@ class AddActivity : AppCompatActivity() {
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
 
+        binding.tytleImage.setOnClickListener {
+
+            var tytleDialig = Tytle_Dialig()
+            tytleDialig.show(supportFragmentManager, "Tytle")
+
+        }
+
     }
 
 private fun updateText(newStr: String){
@@ -40,6 +47,8 @@ private fun updateText(newStr: String){
     var rightStr = oldStr.substring(coursorPos)
     binding.inputText.setText(String.format("%s%s%s", leftStr, newStr, rightStr))
     binding.inputText.setSelection(coursorPos+1)
+    
+
 }
 
     fun btnListener_zero(View: View){

@@ -12,7 +12,7 @@
         android:layout_margin="4dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/tytle_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/ic_launcher_background"
