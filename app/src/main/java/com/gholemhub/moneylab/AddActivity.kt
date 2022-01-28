@@ -1,8 +1,10 @@
 package com.gholemhub.moneylab
 
+import android.app.Dialog
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log.d
+import android.view.LayoutInflater
 import android.view.View
 import org.mariuszgromada.math.mxparser.*
 import com.google.android.material.snackbar.Snackbar
@@ -12,14 +14,35 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.gholemhub.moneylab.adapters.AdapterExpense
+import com.gholemhub.moneylab.adapters.AdapterIncome
+import com.gholemhub.moneylab.adapters.ExpenseItem
+import com.gholemhub.moneylab.adapters.IncomeItem
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
+import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import java.lang.Exception
+
+
 
 class AddActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityAddBinding
+
+    companion object {
+        @JvmStatic
+        var IncomeItemList = mutableListOf<IncomeItem>()
+        var ExpenseItemList = mutableListOf<ExpenseItem>()
+    }
+
+
+    private lateinit var bindingDialig: DialogTytleBinding
+    private lateinit var dialog: Dialog
+    private var adapterIncome: RecyclerView.Adapter<AdapterIncome.ViewHolder>? = null
+    private var adapterExpense: RecyclerView.Adapter<AdapterExpense.ViewHolder>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +56,59 @@ class AddActivity : AppCompatActivity() {
 
         binding.tytleImage.setOnClickListener {
 
-            var tytleDialig = Tytle_Dialig()
-            tytleDialig.show(supportFragmentManager, "Tytle")
+            bindingDialig = DialogTytleBinding.inflate(layoutInflater)
+            dialog = Dialog(this)
+
+            dialog.setContentView(bindingDialig.root)
+
+
+
+            var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
+            tytleIncome.layoutManager = LinearLayoutManager(this)
+            adapterIncome = AdapterIncome()
+            tytleIncome.adapter = adapterIncome
+
+            var tytleExpense: RecyclerView = bindingDialig.recyclerViewExpense
+            tytleExpense.layoutManager = LinearLayoutManager(this)
+            adapterExpense = AdapterExpense()
+            tytleExpense.adapter = adapterExpense
+
+            dialog.show()
+
+
 
         }
 
+
+
+        IncomeItemList.add(IncomeItem("123", "text1"))
+        IncomeItemList.add(IncomeItem("123", "text2"))
+        IncomeItemList.add(IncomeItem("123", "text3"))
+        IncomeItemList.add(IncomeItem("123", "text4"))
+
+        ExpenseItemList.add(ExpenseItem("123", "5"))
+        ExpenseItemList.add(ExpenseItem("123", "4"))
+        ExpenseItemList.add(ExpenseItem("123", "6"))
+        ExpenseItemList.add(ExpenseItem("123", "7"))
+        ExpenseItemList.add(ExpenseItem("123", "5"))
+        ExpenseItemList.add(ExpenseItem("123", "4"))
+        ExpenseItemList.add(ExpenseItem("123", "6"))
+        ExpenseItemList.add(ExpenseItem("123", "7"))
+        ExpenseItemList.add(ExpenseItem("123", "5"))
+        ExpenseItemList.add(ExpenseItem("123", "4"))
+        ExpenseItemList.add(ExpenseItem("123", "6"))
+        ExpenseItemList.add(ExpenseItem("123", "7"))
+        ExpenseItemList.add(ExpenseItem("123", "5"))
+        ExpenseItemList.add(ExpenseItem("123", "4"))
+        ExpenseItemList.add(ExpenseItem("123", "6"))
+        ExpenseItemList.add(ExpenseItem("123", "7"))
+
+
+
+
     }
+
+
 
 private fun updateText(newStr: String){
     var oldStr = binding.inputText.text.toString()
