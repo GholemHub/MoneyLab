@@ -3,28 +3,18 @@ package com.gholemhub.moneylab
 import android.app.Dialog
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log.d
-import android.view.LayoutInflater
 import android.view.View
 import org.mariuszgromada.math.mxparser.*
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.toSpannable
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.adapters.AdapterExpense
-import com.gholemhub.moneylab.adapters.AdapterIncome
-import com.gholemhub.moneylab.adapters.ExpenseItem
-import com.gholemhub.moneylab.adapters.IncomeItem
-import com.gholemhub.moneylab.databinding.ActivityAddBinding
-import com.gholemhub.moneylab.databinding.ActivityMainBinding
-import com.gholemhub.moneylab.databinding.DialogTytleBinding
-import java.lang.Exception
 
+import com.gholemhub.moneylab.adapters.ExpenseItem
+import com.gholemhub.moneylab.databinding.ActivityAddBinding
+import com.gholemhub.moneylab.databinding.DialogTytleBinding
+import com.gholemhub.moneylab.viewmodels.AdapterViewModel
 
 
 class AddActivity : AppCompatActivity() {
@@ -34,15 +24,19 @@ class AddActivity : AppCompatActivity() {
 
     companion object {
         @JvmStatic
-        var IncomeItemList = mutableListOf<IncomeItem>()
-        var ExpenseItemList = mutableListOf<ExpenseItem>()
+
+
+        var arrList = mutableListOf<AdapterViewModel>()
     }
 
 
     private lateinit var bindingDialig: DialogTytleBinding
     private lateinit var dialog: Dialog
-    private var adapterIncome: RecyclerView.Adapter<AdapterIncome.ViewHolder>? = null
-    private var adapterExpense: RecyclerView.Adapter<AdapterExpense.ViewHolder>? = null
+
+
+
+
+    lateinit var Adapter1: AdapterExpense
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +44,9 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         var view = binding.root
         setContentView(view)
+
+
+
 
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
@@ -59,51 +56,59 @@ class AddActivity : AppCompatActivity() {
             bindingDialig = DialogTytleBinding.inflate(layoutInflater)
             dialog = Dialog(this)
 
+            //recyclerView = bindingDialig.recyclerViewIncome
+            //recyclerView.layoutManager = LinearLayoutManager(this)
             dialog.setContentView(bindingDialig.root)
 
 
 
             var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
             tytleIncome.layoutManager = LinearLayoutManager(this)
-            adapterIncome = AdapterIncome()
-            tytleIncome.adapter = adapterIncome
+            Adapter1 = AdapterExpense()
+            tytleIncome.adapter = Adapter1
 
-            var tytleExpense: RecyclerView = bindingDialig.recyclerViewExpense
-            tytleExpense.layoutManager = LinearLayoutManager(this)
-            adapterExpense = AdapterExpense()
-            tytleExpense.adapter = adapterExpense
+            //var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
+            //tytleIncome.layoutManager = LinearLayoutManager(this)
+
+
+            //recyclerView.adapter = Adapter1
+
+            Adapter1.notifyDataSetChanged()
 
             dialog.show()
 
+            //
+            //recyclerView.adapter = Adapter1
 
+/*
+
+
+
+
+            var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
+            tytleIncome.layoutManager = LinearLayoutManager(this)
+
+            tytleIncome.adapter = adapterIncome
+
+            dialog.show()
+
+*/
 
         }
 
 
 
-        IncomeItemList.add(IncomeItem("123", "text1"))
-        IncomeItemList.add(IncomeItem("123", "text2"))
-        IncomeItemList.add(IncomeItem("123", "text3"))
-        IncomeItemList.add(IncomeItem("123", "text4"))
-
-        ExpenseItemList.add(ExpenseItem("123", "5"))
-        ExpenseItemList.add(ExpenseItem("123", "4"))
-        ExpenseItemList.add(ExpenseItem("123", "6"))
-        ExpenseItemList.add(ExpenseItem("123", "7"))
-        ExpenseItemList.add(ExpenseItem("123", "5"))
-        ExpenseItemList.add(ExpenseItem("123", "4"))
-        ExpenseItemList.add(ExpenseItem("123", "6"))
-        ExpenseItemList.add(ExpenseItem("123", "7"))
-        ExpenseItemList.add(ExpenseItem("123", "5"))
-        ExpenseItemList.add(ExpenseItem("123", "4"))
-        ExpenseItemList.add(ExpenseItem("123", "6"))
-        ExpenseItemList.add(ExpenseItem("123", "7"))
-        ExpenseItemList.add(ExpenseItem("123", "5"))
-        ExpenseItemList.add(ExpenseItem("123", "4"))
-        ExpenseItemList.add(ExpenseItem("123", "6"))
-        ExpenseItemList.add(ExpenseItem("123", "7"))
-
-
+        arrList.add(AdapterViewModel("123", "1"))
+        arrList.add(AdapterViewModel("123", "2"))
+        arrList.add(AdapterViewModel("123", "3"))
+        arrList.add(AdapterViewModel("123", "4"))
+        arrList.add(AdapterViewModel("123", "5"))
+        arrList.add(AdapterViewModel("123", "6"))
+        arrList.add(AdapterViewModel("123", "7"))
+        arrList.add(AdapterViewModel("123", "8"))
+        arrList.add(AdapterViewModel("123", "9"))
+        arrList.add(AdapterViewModel("123", "10"))
+        arrList.add(AdapterViewModel("123", "10"))
 
 
     }

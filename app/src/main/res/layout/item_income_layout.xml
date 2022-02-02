@@ -24,7 +24,7 @@
             android:id="@+id/tytle_income_text_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="None"
+            android:text="2222222222222"
             android:textSize="16sp" />
     </TableRow>
 </RelativeLayout >

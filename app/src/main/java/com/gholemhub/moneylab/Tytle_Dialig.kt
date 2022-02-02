@@ -10,13 +10,11 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.adapters.AdapterIncome
+
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
 
 class Tytle_Dialig: AppCompatDialogFragment() {
-
-
 
     var binding = DialogTytleBinding.inflate(layoutInflater)
 
