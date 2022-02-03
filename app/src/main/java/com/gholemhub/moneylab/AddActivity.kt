@@ -6,12 +6,11 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import org.mariuszgromada.math.mxparser.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.adapters.AdapterExpense
 
-import com.gholemhub.moneylab.adapters.ExpenseItem
+
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.viewmodels.AdapterViewModel
@@ -19,22 +18,19 @@ import com.gholemhub.moneylab.viewmodels.AdapterViewModel
 
 class AddActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityAddBinding
 
     companion object {
         @JvmStatic
 
-
-        var arrList = mutableListOf<AdapterViewModel>()
+        lateinit var dialog: Dialog
+        var TitleType = mutableListOf<AdapterViewModel>()
+        var TitleTypeLine = 0
     }
 
 
     private lateinit var bindingDialig: DialogTytleBinding
-    private lateinit var dialog: Dialog
-
-
-
+    private
 
     lateinit var Adapter1: AdapterExpense
 
@@ -46,84 +42,75 @@ class AddActivity : AppCompatActivity() {
         setContentView(view)
 
 
-
-
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
 
+        setTitle()
+
+        TitleType.add(AdapterViewModel("123", "1income", "income", 3))
+        TitleType.add(AdapterViewModel("123", "2income", "income", 3))
+        TitleType.add(AdapterViewModel("123", "3expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "4expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "5expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "6expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "7expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "8expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "9income","income", 3))
+        TitleType.add(AdapterViewModel("123", "10expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "10expense", "expense", 1))
+        TitleType.add(AdapterViewModel("123", "15expense", "border", 2))
+
+        TitleType.sortBy { t -> t.id}
+
+        TitleType
+
+        TitleTypeLineFun()
+    }
+
+    private fun TitleTypeLineFun() {
+
+        var counter = 0
+
+        TitleType.forEach{f ->
+            if(f.type == "expense")
+            {
+                counter += 1
+            }
+        }
+
+        if(TitleTypeLine < counter){
+            TitleTypeLine = counter
+        }
+
+    }
+
+    private fun setTitle() {
         binding.tytleImage.setOnClickListener {
 
             bindingDialig = DialogTytleBinding.inflate(layoutInflater)
             dialog = Dialog(this)
 
-            //recyclerView = bindingDialig.recyclerViewIncome
-            //recyclerView.layoutManager = LinearLayoutManager(this)
             dialog.setContentView(bindingDialig.root)
-
-
 
             var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
             tytleIncome.layoutManager = LinearLayoutManager(this)
             Adapter1 = AdapterExpense()
             tytleIncome.adapter = Adapter1
 
-            //var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
-            //tytleIncome.layoutManager = LinearLayoutManager(this)
-
-
-            //recyclerView.adapter = Adapter1
-
             Adapter1.notifyDataSetChanged()
 
             dialog.show()
-
-            //
-            //recyclerView.adapter = Adapter1
-
-/*
-
-
-
-
-            var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
-            tytleIncome.layoutManager = LinearLayoutManager(this)
-
-            tytleIncome.adapter = adapterIncome
-
-            dialog.show()
-
-*/
-
         }
-
-
-
-        arrList.add(AdapterViewModel("123", "1"))
-        arrList.add(AdapterViewModel("123", "2"))
-        arrList.add(AdapterViewModel("123", "3"))
-        arrList.add(AdapterViewModel("123", "4"))
-        arrList.add(AdapterViewModel("123", "5"))
-        arrList.add(AdapterViewModel("123", "6"))
-        arrList.add(AdapterViewModel("123", "7"))
-        arrList.add(AdapterViewModel("123", "8"))
-        arrList.add(AdapterViewModel("123", "9"))
-        arrList.add(AdapterViewModel("123", "10"))
-        arrList.add(AdapterViewModel("123", "10"))
-
-
     }
 
 
-
-private fun updateText(newStr: String){
+    private fun updateText(newStr: String){
     var oldStr = binding.inputText.text.toString()
     var coursorPos = binding.inputText.selectionStart
     var leftStr = oldStr.substring(0, coursorPos)
     var rightStr = oldStr.substring(coursorPos)
     binding.inputText.setText(String.format("%s%s%s", leftStr, newStr, rightStr))
     binding.inputText.setSelection(coursorPos+1)
-    
-
 }
 
     fun btnListener_zero(View: View){
