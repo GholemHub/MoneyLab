@@ -60,44 +60,6 @@ class AdapterExpense: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 d("TAG", "HER")
                 (holder as viewHolderZero).bindItemsOne(TitleType[position])
         }
-
-/*
-        when {
-            position == TitleTypeLine -> {
-                (holder as viewHolderZero)
-            }
-            TitleType[position].type == "income" -> {
-                (holder as viewHolderOne).bindItemsOne(TitleType[position])
-
-                holder.table.setOnClickListener {
-                    dialog.dismiss();
-
-                }
-            }
-            TitleType[position].type == "expense" -> {
-                (holder as viewHolderTwo).bindItemsOne(TitleType[position])
-
-                holder.table.setOnClickListener {
-                    dialog.dismiss();
-                }
-            }
-            else-> 5
-        }*/
-/*
-        if(TitleType[position].type == "income"){
-            (holder as viewHolderOne).bindItemsOne(TitleType[position])
-
-            holder.table.setOnClickListener{
-                dialog.dismiss();
-
-            }
-
-        }else{
-            (holder as viewHolderTwo).bindItemsOne(TitleType[position])
-            holder.table.setOnClickListener{
-                dialog.dismiss();
-            }
-        }*/
     }
 
     override fun getItemCount(): Int {
@@ -105,20 +67,25 @@ class AdapterExpense: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class viewHolderOne(itemView: View): RecyclerView.ViewHolder(itemView){
+        var image = itemView.findViewById<ImageView>(R.id.tytle_expense_image_item)
         var table = itemView.findViewById<TableRow>(R.id.tytle_expense_table_item)
         var title: TextView = itemView.findViewById<TextView>(R.id.tytle_expense_text_item)
 
         fun bindItemsOne(item : AdapterViewModel){
-            title.text = item.title
+            title.text = item.type
+            //d("TAG", "" + item.image)
+            image.setImageResource(item.image)
         }
     }
     inner class viewHolderTwo(itemView: View): RecyclerView.ViewHolder(itemView){
+        var image = itemView.findViewById<ImageView>(R.id.tytle_income_image_item)
         var table = itemView.findViewById<TableRow>(R.id.tytle_income_table_item)
         var title: TextView = itemView.findViewById<TextView>(R.id.tytle_income_text_item)
 
 
         fun bindItemsOne(item : AdapterViewModel){
             title.text = item.title
+            image.setImageResource(item.image)
         }
     }
 

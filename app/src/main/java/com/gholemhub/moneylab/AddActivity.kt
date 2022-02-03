@@ -45,45 +45,27 @@ class AddActivity : AppCompatActivity() {
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
 
-        setTitle()
 
-        TitleType.add(AdapterViewModel("123", "1income", "income", 3))
-        TitleType.add(AdapterViewModel("123", "2income", "income", 3))
-        TitleType.add(AdapterViewModel("123", "3expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "4expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "5expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "6expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "7expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "8expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "9income","income", 3))
-        TitleType.add(AdapterViewModel("123", "10expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "10expense", "expense", 1))
-        TitleType.add(AdapterViewModel("123", "15expense", "border", 2))
+
+        TitleType.add(AdapterViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3))
+        TitleType.add(AdapterViewModel(R.drawable.outline_directions_bus_24, "2income", "income", 3))
+        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "4expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "5expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "6expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "3expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "7expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "8expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_ramen_dining_24, "9income","income", 3))
+        TitleType.add(AdapterViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
+        TitleType.add(AdapterViewModel(R.drawable.outline_directions_bus_24, "15expense", "border", 2))
 
         TitleType.sortBy { t -> t.id}
 
-        TitleType
 
-        TitleTypeLineFun()
-    }
-
-    private fun TitleTypeLineFun() {
-
-        var counter = 0
-
-        TitleType.forEach{f ->
-            if(f.type == "expense")
-            {
-                counter += 1
-            }
-        }
-
-        if(TitleTypeLine < counter){
-            TitleTypeLine = counter
-        }
+        setTitle()
 
     }
-
     private fun setTitle() {
         binding.tytleImage.setOnClickListener {
 
@@ -117,7 +99,15 @@ class AddActivity : AppCompatActivity() {
         updateText("0")
     }
     fun btnListener_zero_zero(View: View){
-        updateText("00")
+
+        var oldStr = binding.inputText.text.toString()
+        var coursorPos = binding.inputText.selectionStart
+        var leftStr = oldStr.substring(0, coursorPos)
+        var rightStr = oldStr.substring(coursorPos)
+        binding.inputText.setText(String.format("%s%s%s", leftStr, "00", rightStr))
+        binding.inputText.setSelection(coursorPos+2)
+
+        //updateText("00")
     }
     fun btnListener_one(View: View){
         updateText("1")

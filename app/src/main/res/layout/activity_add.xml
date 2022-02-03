@@ -15,11 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout">
-        <de.hdodenhof.circleimageview.CircleImageView
+
+
+
+        <ImageView
             android:id="@+id/tytle_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/outline_add_photo_alternate_24"
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000" tools:ignore="MissingConstraints"
             />

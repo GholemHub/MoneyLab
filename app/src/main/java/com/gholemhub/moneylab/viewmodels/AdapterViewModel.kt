@@ -1,4 +1,6 @@
 package com.gholemhub.moneylab.viewmodels
 
-data class AdapterViewModel (var image: String, var title: String, var type: String, var id: Int){
+import android.media.Image
+
+data class AdapterViewModel(var image: Int, var title: String, var type: String, var id: Int){
 }
