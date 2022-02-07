@@ -3,7 +3,9 @@ package com.gholemhub.moneylab
 import android.app.Dialog
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log.d
 import android.view.View
+import android.widget.Toast
 import org.mariuszgromada.math.mxparser.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +16,14 @@ import com.gholemhub.moneylab.adapters.AdapterAddDialog
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.viewmodels.AddViewModel
+import kotlin.properties.Delegates
 
 
-class AddActivity : AppCompatActivity() {
+class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
-    private lateinit var binding: ActivityAddBinding
+
+    private var idOfTipe: Int = 0
+
 
     companion object {
         @JvmStatic
@@ -26,12 +31,15 @@ class AddActivity : AppCompatActivity() {
         lateinit var dialog: Dialog
         var TitleType = mutableListOf<AddViewModel>()
         var TitleTypeLine = 0
+        lateinit var binding: ActivityAddBinding
     }
 
 
     private lateinit var bindingDialig: DialogTytleBinding
 
     lateinit var adapter1: AdapterAddDialog
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +51,6 @@ class AddActivity : AppCompatActivity() {
 
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
-
-
 
         TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 1))
         TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "2income", "expense", 3))
@@ -61,10 +67,20 @@ class AddActivity : AppCompatActivity() {
 
         TitleType.sortBy { t -> t.id}
 
-
         setTitle()
-
+        //setImageListener(binding)
     }
+
+    fun setImageListener(binding: ActivityAddBinding) {
+
+        binding.tytleImage.setImageResource(TitleType[idOfTipe].image)
+    }
+
+    override fun applyTipe(id: Int) {
+        d("TAG", "id: " + id)
+        idOfTipe = id
+    }
+
     private fun setTitle() {
         binding.tytleImage.setOnClickListener {
 
@@ -81,10 +97,14 @@ class AddActivity : AppCompatActivity() {
             adapter1.notifyDataSetChanged()
 
             dialog.show()
+
+
         }
+
+        //d("TAG", "id2: " + idOfTipe)
+
+        //setImageListener(binding)
     }
-
-
     private fun updateText(newStr: String){
     var oldStr = binding.inputText.text.toString()
     var coursorPos = binding.inputText.selectionStart
@@ -93,7 +113,6 @@ class AddActivity : AppCompatActivity() {
     binding.inputText.setText(String.format("%s%s%s", leftStr, newStr, rightStr))
     binding.inputText.setSelection(coursorPos+1)
 }
-
     fun btnListener_zero(View: View){
         updateText("0")
     }
@@ -138,27 +157,21 @@ class AddActivity : AppCompatActivity() {
     fun btnListener_clear(View: View){
         binding.inputText.setText("")
     }
-
     fun btnListener_Plus(View: View){
         updateText("+")
     }
-
     fun btnListener_Minuse(View: View){
         updateText("-")
     }
-
     fun btnListener_Multiplication(View: View){
         updateText("×")
     }
-
     fun btnListener_Division(View: View){
         updateText("/")
     }
-
     fun btnListener_Dot(View: View){
         updateText(".")
     }
-
     fun btnListener_Equel(View: View){
         var str = binding.inputText.text.toString()
 
@@ -171,7 +184,6 @@ class AddActivity : AppCompatActivity() {
         binding.inputText.setSelection(res.length)
 
     }
-
     fun btnListener_backspace(View: View){
 
         var cursorPos = binding.inputText.selectionStart
@@ -185,7 +197,4 @@ class AddActivity : AppCompatActivity() {
             binding.inputText.setSelection(cursorPos - 1)
         }
     }
-
-
-
 }

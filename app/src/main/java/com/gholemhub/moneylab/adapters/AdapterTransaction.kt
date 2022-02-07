@@ -49,6 +49,10 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             //Log.d("TAG", "HER")
             (holder as AdapterTransaction.viewHolderData).bindItems(TransactionList[position])
         }
+        else if(TransactionList[position].type == "date") {
+            //Log.d("TAG", "HER")
+            (holder as AdapterTransaction.viewHolderData).bindItems(TransactionList[position])
+        }
     }
 
     override fun getItemCount(): Int {

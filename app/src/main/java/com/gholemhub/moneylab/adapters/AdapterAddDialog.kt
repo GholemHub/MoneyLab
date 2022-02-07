@@ -6,20 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.gholemhub.moneylab.AddActivity
 import com.gholemhub.moneylab.AddActivity.Companion.TitleType
 import com.gholemhub.moneylab.AddActivity.Companion.TitleTypeLine
+import com.gholemhub.moneylab.AddActivity.Companion.binding
 import com.gholemhub.moneylab.AddActivity.Companion.dialog
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.viewmodels.AddViewModel
+import java.lang.ClassCastException
 
 class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    lateinit var listener: DialogAddListener
 
     override fun getItemViewType(position: Int): Int {
     return if(TitleType[position].type == "expense") 0
     else if(TitleType[position].type == "income") 1
     else if(TitleTypeLine == position) 2
         else 3
-
 
     }
 
@@ -45,13 +49,17 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if(TitleType[position].type == "expense") {
             (holder as viewHolderOne).bindItemsOne(TitleType[position])
             holder.table.setOnClickListener {
-
+                listener.applyTipe(position)
+                binding.tytleImage.setImageResource(TitleType[position].image)
                 dialog.dismiss()
             }
         }
         else if(TitleType[position].type == "income") {
             (holder as viewHolderTwo).bindItemsOne(TitleType[position])
             holder.table.setOnClickListener {
+
+                listener.applyTipe(position)
+                binding.tytleImage.setImageResource(TitleType[position].image)
                 dialog.dismiss()
 
             }
@@ -60,6 +68,19 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 d("TAG", "HER")
                 (holder as viewHolderZero).bindItemsOne(TitleType[position])
         }
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+
+
+        try {
+            listener = recyclerView.context as DialogAddListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(recyclerView.context.toString() + "implement the DialogListener")
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -94,6 +115,11 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bindItemsOne(item : AddViewModel){
 
         }
+    }
+
+
+    interface DialogAddListener{
+        fun applyTipe(id: Int){}
     }
 
 }

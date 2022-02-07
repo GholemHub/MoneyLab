@@ -30,12 +30,15 @@ class FragmentTransaction : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,R.layout.fragment_transaction, container, false)
 
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3, 24))
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3, 24))
         TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "date", 1, 24))
         TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3, 24))
+        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3, 24))
+        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3, 24))
+
         TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "date", 1, 24))
         TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 2, 24))
+
+
         AddActivity.TitleType.sortBy { t -> t.id}
 
         AdapterSetup(binding)
