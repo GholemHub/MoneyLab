@@ -3,13 +3,9 @@ package com.gholemhub.moneylab
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
 import com.gholemhub.moneylab.viewmodels.MainActivityViewModel
@@ -35,7 +31,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
         binding.bnv?.background = null
         binding.bnv?.menu?.getItem(1)?.isEnabled = false
 
-        var addFragment = FragmentAdd()
+        var addFragment = FragmentTransaction()
 
         var navigationController = findNavController(R.id.Fragment)
         binding.bnv?.setupWithNavController(navigationController)

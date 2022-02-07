@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.Barrier
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.AddActivity.Companion.TitleType
 import com.gholemhub.moneylab.AddActivity.Companion.TitleTypeLine
 import com.gholemhub.moneylab.AddActivity.Companion.dialog
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.viewmodels.AdapterViewModel
+import com.gholemhub.moneylab.viewmodels.AddViewModel
 
-class AdapterExpense: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
     return if(TitleType[position].type == "expense") 0
@@ -46,6 +45,7 @@ class AdapterExpense: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if(TitleType[position].type == "expense") {
             (holder as viewHolderOne).bindItemsOne(TitleType[position])
             holder.table.setOnClickListener {
+
                 dialog.dismiss()
             }
         }
@@ -69,21 +69,20 @@ class AdapterExpense: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class viewHolderOne(itemView: View): RecyclerView.ViewHolder(itemView){
         var image = itemView.findViewById<ImageView>(R.id.tytle_expense_image_item)
         var table = itemView.findViewById<TableRow>(R.id.tytle_expense_table_item)
-        var title: TextView = itemView.findViewById<TextView>(R.id.tytle_expense_text_item)
+        var title = itemView.findViewById<TextView>(R.id.tytle_expense_text_item)
 
-        fun bindItemsOne(item : AdapterViewModel){
+        fun bindItemsOne(item : AddViewModel){
             title.text = item.type
-            //d("TAG", "" + item.image)
             image.setImageResource(item.image)
         }
     }
     inner class viewHolderTwo(itemView: View): RecyclerView.ViewHolder(itemView){
         var image = itemView.findViewById<ImageView>(R.id.tytle_income_image_item)
         var table = itemView.findViewById<TableRow>(R.id.tytle_income_table_item)
-        var title: TextView = itemView.findViewById<TextView>(R.id.tytle_income_text_item)
+        var title = itemView.findViewById<TextView>(R.id.tytle_income_text_item)
 
 
-        fun bindItemsOne(item : AdapterViewModel){
+        fun bindItemsOne(item : AddViewModel){
             title.text = item.title
             image.setImageResource(item.image)
         }
@@ -92,7 +91,7 @@ class AdapterExpense: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class viewHolderZero(itemView: View): RecyclerView.ViewHolder(itemView){
 
 
-        fun bindItemsOne(item : AdapterViewModel){
+        fun bindItemsOne(item : AddViewModel){
 
         }
     }

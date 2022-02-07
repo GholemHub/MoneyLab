@@ -4,8 +4,8 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_navigation"
             app:startDestination="@id/fragmentAdd">
 
-    <fragment android:id="@+id/fragmentAdd" android:name="com.gholemhub.moneylab.FragmentAdd"
-              android:label="fragment_add" tools:layout="@layout/fragment_add">
+    <fragment android:id="@+id/fragmentAdd" android:name="com.gholemhub.moneylab.FragmentTransaction"
+              android:label="fragment_add" tools:layout="@layout/fragment_transaction">
         <action android:id="@+id/action_fragmentAdd_to_fragmentHistory" app:destination="@id/fragmentHistory"/>
     </fragment>
     <fragment android:id="@+id/fragmentHistory" android:name="com.gholemhub.moneylab.FragmentHistory"

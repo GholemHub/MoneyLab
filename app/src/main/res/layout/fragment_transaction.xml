@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="NowFragment"
+           type="com.gholemhub.moneylab.FragmentTransaction" />
+    </data>
+
+<FrameLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".FragmentTransaction">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+<!--
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="2"
+            android:textSize="40dp"
+    />
+-->
+</FrameLayout>
+</layout>

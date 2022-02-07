@@ -16,8 +16,6 @@
         android:layout_margin="4dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout">
 
-
-
         <ImageView
             android:id="@+id/tytle_image"
             android:layout_width="70dp"

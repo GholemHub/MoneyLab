@@ -8,12 +8,12 @@ import org.mariuszgromada.math.mxparser.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.adapters.AdapterExpense
+import com.gholemhub.moneylab.adapters.AdapterAddDialog
 
 
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
-import com.gholemhub.moneylab.viewmodels.AdapterViewModel
+import com.gholemhub.moneylab.viewmodels.AddViewModel
 
 
 class AddActivity : AppCompatActivity() {
@@ -24,15 +24,14 @@ class AddActivity : AppCompatActivity() {
         @JvmStatic
 
         lateinit var dialog: Dialog
-        var TitleType = mutableListOf<AdapterViewModel>()
+        var TitleType = mutableListOf<AddViewModel>()
         var TitleTypeLine = 0
     }
 
 
     private lateinit var bindingDialig: DialogTytleBinding
-    private
 
-    lateinit var Adapter1: AdapterExpense
+    lateinit var adapter1: AdapterAddDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,18 +46,18 @@ class AddActivity : AppCompatActivity() {
 
 
 
-        TitleType.add(AdapterViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 3))
-        TitleType.add(AdapterViewModel(R.drawable.outline_directions_bus_24, "2income", "income", 3))
-        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "4expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "5expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "6expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "3expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "7expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_phone_iphone_24, "8expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_ramen_dining_24, "9income","income", 3))
-        TitleType.add(AdapterViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
-        TitleType.add(AdapterViewModel(R.drawable.outline_directions_bus_24, "15expense", "border", 2))
+        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "2income", "expense", 3))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "4expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "5expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "6expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "3expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "7expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "8expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "9income","income", 3))
+        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
+        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "15expense", "border", 2))
 
         TitleType.sortBy { t -> t.id}
 
@@ -76,10 +75,10 @@ class AddActivity : AppCompatActivity() {
 
             var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
             tytleIncome.layoutManager = LinearLayoutManager(this)
-            Adapter1 = AdapterExpense()
-            tytleIncome.adapter = Adapter1
+            adapter1 = AdapterAddDialog()
+            tytleIncome.adapter = adapter1
 
-            Adapter1.notifyDataSetChanged()
+            adapter1.notifyDataSetChanged()
 
             dialog.show()
         }
