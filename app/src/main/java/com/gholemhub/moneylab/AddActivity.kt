@@ -23,6 +23,9 @@ import com.gholemhub.moneylab.viewmodels.TransactionViewModel
 import org.mariuszgromada.math.mxparser.*
 import java.lang.Exception
 import java.lang.Integer.parseInt
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
@@ -205,39 +208,24 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
     @SuppressLint("ResourceAsColor")
     fun btnListener_Equel(View: View){
+        var str = binding.inputText.text.toString()
+
+        str = str.replace("×", "*")
+        var exp = Expression(str)
+        var res = exp.calculate().toString()
+
+        expression = res.toDouble().toInt()
+
+        binding.inputText.setText(expression.toString())
+        binding.inputText.setSelection(expression.toString().length)
 
         if(boolEquel) {
-            var str = binding.inputText.text.toString()
-
-            str = str.replace("×", "*")
-
-            var exp = Expression(str)
-
-            var res = exp.calculate().toString()
-
-            expression = res.toInt()
-
-            binding.inputText.setText(res)
-            binding.inputText.setSelection(res.length)
             ChanheColour("#32A852")
             boolEquel = false
             d("TAG", "ERROR1")
         }
         else{
-            var str = binding.inputText.text.toString()
 
-            str = str.replace("×", "*")
-
-            var exp = Expression(str)
-
-            var res = exp.calculate().toString()
-
-            //d("TAG",  "RES: $res" )
-
-            expression = res.toDouble().toInt()
-
-            binding.inputText.setText(res)
-            binding.inputText.setSelection(res.length)
             CreateTransaction()
         }
 
@@ -246,14 +234,14 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     }
     private fun CreateTransaction() {
 
-        //val bm = (binding.tytleImage.drawable as BitmapDrawable).bitmap
-
         if(binding.tytleImage.drawable.toString() !=  "android.graphics.drawable.VectorDrawable@ffe30f7"){
 
-                    d("TAG", "Expresion: ${expression}"  )
-                var newT = TransactionViewModel(itemAddVM.image, itemAddVM.title, itemAddVM.id, expression)
+            CreateDate()
 
+                var newT = TransactionViewModel(itemAddVM.image, itemAddVM.title, itemAddVM.id, expression, CreateDate())
             FragmentTransaction.TransactionList.add(newT)
+
+
 
         }else{
 
@@ -264,6 +252,12 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
         }
         //FragmentTransaction.TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", 1, 24))
+    }
+
+    private fun CreateDate(): String {
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        val date = Date()
+        return sdf.format(date)
     }
 
     @SuppressLint("ResourceAsColor")
