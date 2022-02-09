@@ -17,8 +17,8 @@ import com.gholemhub.moneylab.viewmodels.TransactionViewModel
 class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return if(TransactionList[position].type == "date") 0
-        else if(TransactionList[position].type == "income" || TransactionList[position].type == "expense") 1
+        return if(TransactionList[position].id == 1) 0
+        else if(TransactionList[position].id == 3) 1
         else 2
     }
 
@@ -38,18 +38,18 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(TransactionList[position].type == "expense" || TransactionList[position].type == "income") {
-            d("TAG", TransactionList[position].type)
+        if(TransactionList[position].id == 3) {
+            d("TAG", "" + TransactionList[position].id)
             (holder as viewHolderInfo).bindItems(TransactionList[position])
             holder.table.setOnClickListener {
 
             }
         }
-        else if(TransactionList[position].type == "date") {
+        else if(TransactionList[position].id == 1) {
             //Log.d("TAG", "HER")
             (holder as AdapterTransaction.viewHolderData).bindItems(TransactionList[position])
         }
-        else if(TransactionList[position].type == "date") {
+        else if(TransactionList[position].id == 1) {
             //Log.d("TAG", "HER")
             (holder as AdapterTransaction.viewHolderData).bindItems(TransactionList[position])
         }

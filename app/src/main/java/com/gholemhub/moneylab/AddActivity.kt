@@ -1,28 +1,35 @@
 package com.gholemhub.moneylab
 
+
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log.d
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
-import org.mariuszgromada.math.mxparser.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.adapters.AdapterAddDialog
-
-
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.viewmodels.AddViewModel
-import kotlin.properties.Delegates
+import com.gholemhub.moneylab.viewmodels.TransactionViewModel
+import org.mariuszgromada.math.mxparser.*
+import java.lang.Exception
+import java.lang.Integer.parseInt
 
 
 class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
 
     private var idOfTipe: Int = 0
+    private lateinit var itemAddVM: AddViewModel
 
 
     companion object {
@@ -52,18 +59,24 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
 
-        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "1income", "income", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "2income", "expense", 3))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "4expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "5expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "6expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "3expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "7expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "8expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "9income","income", 3))
-        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "10expense", "expense", 1))
-        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "15expense", "border", 2))
+
+        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "Food",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "Transport",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_attractions_24, "Fun",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_fitness_center_24, "Sport",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_local_taxi_24, "Taxi",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_medical_services_24, "Medicine",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_school_24, "Education",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_shopping_cart_24, "Shopping",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_waterfall_chart_24, "Stock",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_sports_bar_24, "Alcohol",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "Phone bill",  1))
+        TitleType.add(AddViewModel(R.drawable.outline_cottage_24, "Home bill",  1))
+
+        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "15expense",  2))
+
+        TitleType.add(AddViewModel(R.drawable.outline_paid_24, "Salary",  3))
+        TitleType.add(AddViewModel(R.drawable.ic_baseline_bar_chart_24, "Percent",3))
 
         TitleType.sortBy { t -> t.id}
 
@@ -76,9 +89,10 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         binding.tytleImage.setImageResource(TitleType[idOfTipe].image)
     }
 
-    override fun applyTipe(id: Int) {
-        d("TAG", "id: " + id)
-        idOfTipe = id
+    override fun applyTipe(item: AddViewModel) {
+        d("TAG", "id: " + item.id)
+        idOfTipe = item.id
+        itemAddVM = item
     }
 
     private fun setTitle() {
@@ -105,6 +119,9 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
         //setImageListener(binding)
     }
+
+    private var boolEquel = false
+
     private fun updateText(newStr: String){
     var oldStr = binding.inputText.text.toString()
     var coursorPos = binding.inputText.selectionStart
@@ -113,6 +130,7 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     binding.inputText.setText(String.format("%s%s%s", leftStr, newStr, rightStr))
     binding.inputText.setSelection(coursorPos+1)
 }
+
     fun btnListener_zero(View: View){
         updateText("0")
     }
@@ -156,34 +174,105 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     }
     fun btnListener_clear(View: View){
         binding.inputText.setText("")
+        ChanheColour("#32A852")
     }
     fun btnListener_Plus(View: View){
         updateText("+")
+        boolEquel = true
+        ChanheColour("#FFC107")
+
     }
     fun btnListener_Minuse(View: View){
         updateText("-")
+        boolEquel = true
+        ChanheColour("#FFC107")
     }
     fun btnListener_Multiplication(View: View){
         updateText("×")
+        boolEquel = true
+        ChanheColour("#FFC107")
     }
     fun btnListener_Division(View: View){
         updateText("/")
+        boolEquel = true
+        ChanheColour("#FFC107")
     }
     fun btnListener_Dot(View: View){
         updateText(".")
     }
+
+    var expression = 0
+
+    @SuppressLint("ResourceAsColor")
     fun btnListener_Equel(View: View){
-        var str = binding.inputText.text.toString()
 
-        str = str.replace("×", "*")
+        if(boolEquel) {
+            var str = binding.inputText.text.toString()
 
-        var exp: Expression = Expression(str)
+            str = str.replace("×", "*")
 
-        var res = exp.calculate().toString()
-        binding.inputText.setText(res)
-        binding.inputText.setSelection(res.length)
+            var exp = Expression(str)
+
+            var res = exp.calculate().toString()
+
+            expression = res.toInt()
+
+            binding.inputText.setText(res)
+            binding.inputText.setSelection(res.length)
+            ChanheColour("#32A852")
+            boolEquel = false
+            d("TAG", "ERROR1")
+        }
+        else{
+            var str = binding.inputText.text.toString()
+
+            str = str.replace("×", "*")
+
+            var exp = Expression(str)
+
+            var res = exp.calculate().toString()
+
+            //d("TAG",  "RES: $res" )
+
+            expression = res.toDouble().toInt()
+
+            binding.inputText.setText(res)
+            binding.inputText.setSelection(res.length)
+            CreateTransaction()
+        }
+
+
 
     }
+    private fun CreateTransaction() {
+
+        //val bm = (binding.tytleImage.drawable as BitmapDrawable).bitmap
+
+        if(binding.tytleImage.drawable.toString() !=  "android.graphics.drawable.VectorDrawable@ffe30f7"){
+
+                    d("TAG", "Expresion: ${expression}"  )
+                var newT = TransactionViewModel(itemAddVM.image, itemAddVM.title, itemAddVM.id, expression)
+
+            FragmentTransaction.TransactionList.add(newT)
+
+        }else{
+
+            //d("TAG", "ERROR444")
+            val myToast = Toast.makeText(this,"Set title!",Toast.LENGTH_SHORT)
+            myToast.setGravity(Gravity.END,200,200)
+            myToast.show()
+
+        }
+        //FragmentTransaction.TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", 1, 24))
+    }
+
+    @SuppressLint("ResourceAsColor")
+    fun ChanheColour(str: String){
+        binding.button22.setBackgroundColor(Color.parseColor(str))
+    }
+
+   
+
     fun btnListener_backspace(View: View){
 
         var cursorPos = binding.inputText.selectionStart
