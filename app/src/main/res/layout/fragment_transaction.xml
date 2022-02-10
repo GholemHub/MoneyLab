@@ -7,13 +7,13 @@
     <data>
         <variable
             name="NowFragment"
-           type="com.gholemhub.moneylab.FragmentTransaction" />
+           type="com.gholemhub.moneylab.views.FragmentTransaction" />
     </data>
 
 <FrameLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".FragmentTransaction">
+             tools:context=".views.FragmentTransaction">
 
 
 

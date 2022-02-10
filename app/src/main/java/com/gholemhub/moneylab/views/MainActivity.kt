@@ -1,4 +1,4 @@
-package com.gholemhub.moneylab
+package com.gholemhub.moneylab.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.gholemhub.moneylab.AddActivity
+import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
 import com.gholemhub.moneylab.viewmodels.MainActivityViewModel
 

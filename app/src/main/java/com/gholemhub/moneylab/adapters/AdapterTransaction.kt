@@ -8,9 +8,7 @@ import android.widget.ImageView
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.AddActivity
-import com.gholemhub.moneylab.FragmentTransaction
-import com.gholemhub.moneylab.FragmentTransaction.Companion.TransactionList
+import com.gholemhub.moneylab.views.FragmentTransaction.Companion.TransactionList
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.viewmodels.TransactionViewModel
 

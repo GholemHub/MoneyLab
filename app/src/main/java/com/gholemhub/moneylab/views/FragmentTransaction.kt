@@ -1,4 +1,4 @@
-package com.gholemhub.moneylab
+package com.gholemhub.moneylab.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gholemhub.moneylab.AddActivity
+import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.adapters.AdapterAddDialog
 import com.gholemhub.moneylab.adapters.AdapterTransaction
 
@@ -28,17 +30,9 @@ class FragmentTransaction : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,R.layout.fragment_transaction, container, false)
+        val binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,
+            R.layout.fragment_transaction, container, false)
 
-       /* TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", 1, 24))
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", 1, 24))
-
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income",  2, 24))
-
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income",  3, 24))
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income",  3, 24))
-        TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income",  3, 24))
-*/
         AddActivity.TitleType.sortBy { t -> t.id}
 
         AdapterSetup(binding)

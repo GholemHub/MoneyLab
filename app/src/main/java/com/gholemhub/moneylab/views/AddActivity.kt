@@ -20,6 +20,7 @@ import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.viewmodels.AddViewModel
 import com.gholemhub.moneylab.viewmodels.TransactionViewModel
+import com.gholemhub.moneylab.views.FragmentTransaction
 import org.mariuszgromada.math.mxparser.*
 import java.lang.Exception
 import java.lang.Integer.parseInt
@@ -264,8 +265,6 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     fun ChanheColour(str: String){
         binding.button22.setBackgroundColor(Color.parseColor(str))
     }
-
-   
 
     fun btnListener_backspace(View: View){
 

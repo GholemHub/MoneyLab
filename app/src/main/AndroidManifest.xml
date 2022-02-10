@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gholemhub.moneylab" >
+    package="com.gholemhub.moneylab">
 
     <application
         android:allowBackup="true"
@@ -8,15 +8,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoneyLab" >
+        android:theme="@style/Theme.MoneyLab">
+
+        <activity
+            android:name=".views.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MoneyLab" />
         <activity
             android:name=".AddActivity"
             android:exported="true"
             android:label="@string/title_activity_add"
             android:theme="@style/Theme.MoneyLab.NoActionBar" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true" >
+            android:name=".views.AuthenticationActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MoneyLab.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

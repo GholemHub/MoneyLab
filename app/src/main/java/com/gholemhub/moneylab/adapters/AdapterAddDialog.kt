@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.AddActivity
 import com.gholemhub.moneylab.AddActivity.Companion.TitleType
-import com.gholemhub.moneylab.AddActivity.Companion.TitleTypeLine
+
 import com.gholemhub.moneylab.AddActivity.Companion.binding
 import com.gholemhub.moneylab.AddActivity.Companion.dialog
 import com.gholemhub.moneylab.R
