@@ -30,8 +30,7 @@ class AuthenticationActivity : AppCompatActivity() {
     private lateinit var launcher: ActivityResultLauncher<Intent>
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityAuthenticationBinding
-    private lateinit var dataBase: DatabaseReference
-
+    
     private lateinit var account: GoogleSignInAccount
 
     private lateinit var fStore: FirebaseFirestore
