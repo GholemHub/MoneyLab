@@ -8,15 +8,15 @@ import android.widget.ImageView
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.views.FragmentTransaction.Companion.TransactionList
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.viewmodels.TransactionViewModel
+import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 
 class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return if(TransactionList[position].id == 1) 0
-        else if(TransactionList[position].id == 3) 1
+        return if(userModel.ListOfTransactions[position].id == 1) 0
+        else if(userModel.ListOfTransactions[position].id == 3) 1
         else 2
     }
 
@@ -36,25 +36,25 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(TransactionList[position].id == 3) {
-            d("TAG", "" + TransactionList[position].id)
-            (holder as viewHolderInfo).bindItems(TransactionList[position])
+        if(userModel.ListOfTransactions[position].id == 3) {
+            d("TAG", "" + userModel.ListOfTransactions[position].id)
+            (holder as viewHolderInfo).bindItems(userModel.ListOfTransactions[position])
             holder.table.setOnClickListener {
 
             }
         }
-        else if(TransactionList[position].id == 1) {
+        else if(userModel.ListOfTransactions[position].id == 1) {
             //Log.d("TAG", "HER")
-            (holder as AdapterTransaction.viewHolderData).bindItems(TransactionList[position])
+            (holder as AdapterTransaction.viewHolderData).bindItems(userModel.ListOfTransactions[position])
         }
-        else if(TransactionList[position].id == 1) {
+        else if(userModel.ListOfTransactions[position].id == 1) {
             //Log.d("TAG", "HER")
-            (holder as AdapterTransaction.viewHolderData).bindItems(TransactionList[position])
+            (holder as AdapterTransaction.viewHolderData).bindItems(userModel.ListOfTransactions[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return TransactionList.size
+        return userModel.ListOfTransactions.size
     }
 
     inner class viewHolderInfo(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -63,7 +63,7 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var title: TextView = itemView.findViewById<TextView>(R.id.transaction_expense_text_item)
         var count = itemView.findViewById<TextView>(R.id.transaction_count_text_item)
 
-        fun bindItems(item : TransactionViewModel){
+        fun bindItems(item : TransactionVM){
             title.text = item.title
             image.setImageResource(item.image)
         }
@@ -72,13 +72,13 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var table = itemView.findViewById<TableRow>(R.id.transaction_data_table)
         //var title: TextView = itemView.findViewById<TextView>(R.id.transaction_data1)
 
-        fun bindItems(item : TransactionViewModel){
+        fun bindItems(item : TransactionVM){
             //title.text = item.title
         }
     }
 
     inner class viewHolderDeliver(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bindItems(item : TransactionViewModel){
+        fun bindItems(item : TransactionVM){
 
         }
     }

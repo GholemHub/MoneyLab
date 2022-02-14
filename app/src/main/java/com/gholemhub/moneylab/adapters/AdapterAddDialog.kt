@@ -1,17 +1,17 @@
 package com.gholemhub.moneylab.adapters
 
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.AddActivity.Companion.TitleType
+
 
 import com.gholemhub.moneylab.AddActivity.Companion.binding
 import com.gholemhub.moneylab.AddActivity.Companion.dialog
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.viewmodels.AddViewModel
+import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
+import com.gholemhub.moneylab.classes.TitleIE
 import java.lang.ClassCastException
 
 class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -19,9 +19,9 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var listener: DialogAddListener
 
     override fun getItemViewType(position: Int): Int {
-    return if(TitleType[position].id == 3) 0
-    else if(TitleType[position].id == 1) 1
-    else if(TitleType[position].id == 2) 2
+    return if(userModel.ListOfTitles[position].id == 3) 0
+    else if(userModel.ListOfTitles[position].id == 1) 1
+    else if(userModel.ListOfTitles[position].id == 2) 2
         else 3
 
     }
@@ -45,27 +45,27 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        if(TitleType[position].id == 3) {
-            (holder as viewHolderOne).bindItemsOne(TitleType[position])
+        if(userModel.ListOfTitles[position].id == 3) {
+            (holder as viewHolderOne).bindItemsOne(userModel.ListOfTitles[position])
             holder.table.setOnClickListener {
-                listener.applyTipe(TitleType[position])
-                binding.tytleImage.setImageResource(TitleType[position].image)
+                listener.applyTipe(userModel.ListOfTitles[position])
+                binding.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
                 dialog.dismiss()
             }
         }
-        else if(TitleType[position].id == 1) {
-            (holder as viewHolderTwo).bindItemsOne(TitleType[position])
+        else if(userModel.ListOfTitles[position].id == 1) {
+            (holder as viewHolderTwo).bindItemsOne(userModel.ListOfTitles[position])
             holder.table.setOnClickListener {
 
-                listener.applyTipe(TitleType[position])
-                binding.tytleImage.setImageResource(TitleType[position].image)
+                listener.applyTipe(userModel.ListOfTitles[position])
+                binding.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
                 dialog.dismiss()
 
             }
         }
-        else if(TitleType[position].id == 2) {
+        else if(userModel.ListOfTitles[position].id == 2) {
                 //d("TAG", "HER")
-                (holder as viewHolderZero).bindItemsOne(TitleType[position])
+                (holder as viewHolderZero).bindItemsOne(userModel.ListOfTitles[position])
         }
     }
 
@@ -80,7 +80,7 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return TitleType.size
+        return userModel.ListOfTitles.size
     }
 
     inner class viewHolderOne(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -88,7 +88,7 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var table = itemView.findViewById<TableRow>(R.id.tytle_expense_table_item)
         var title = itemView.findViewById<TextView>(R.id.tytle_expense_text_item)
 
-        fun bindItemsOne(item : AddViewModel){
+        fun bindItemsOne(item : TitleIE){
             title.text = item.title
             image.setImageResource(item.image)
         }
@@ -99,7 +99,7 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var title = itemView.findViewById<TextView>(R.id.tytle_income_text_item)
 
 
-        fun bindItemsOne(item : AddViewModel){
+        fun bindItemsOne(item : TitleIE){
             title.text = item.title
             image.setImageResource(item.image)
         }
@@ -108,14 +108,14 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class viewHolderZero(itemView: View): RecyclerView.ViewHolder(itemView){
 
 
-        fun bindItemsOne(item : AddViewModel){
+        fun bindItemsOne(item : TitleIE){
 
         }
     }
 
 
     interface DialogAddListener{
-        fun applyTipe(id: AddViewModel){}
+        fun applyTipe(id: TitleIE){}
     }
 
 }

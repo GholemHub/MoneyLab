@@ -3,8 +3,8 @@ package com.gholemhub.moneylab
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log.d
@@ -12,20 +12,20 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toDrawable
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.adapters.AdapterAddDialog
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
-import com.gholemhub.moneylab.viewmodels.AddViewModel
-import com.gholemhub.moneylab.viewmodels.TransactionViewModel
+import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
+import com.gholemhub.moneylab.classes.TitleIE
+import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
 import com.gholemhub.moneylab.views.FragmentTransaction
+import com.gholemhub.moneylab.views.MainActivity
 import org.mariuszgromada.math.mxparser.*
-import java.lang.Exception
-import java.lang.Integer.parseInt
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -33,18 +33,16 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
 
     private var idOfTipe: Int = 0
-    private lateinit var itemAddVM: AddViewModel
-
+    private lateinit var titleIE: TitleIE
 
     companion object {
         @JvmStatic
 
         lateinit var dialog: Dialog
-        var TitleType = mutableListOf<AddViewModel>()
-        var TitleTypeLine = 0
+        //var TitleType = mutableListOf<TitleIE>()
+
         lateinit var binding: ActivityAddBinding
     }
-
 
     private lateinit var bindingDialig: DialogTytleBinding
 
@@ -59,47 +57,23 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         var view = binding.root
         setContentView(view)
 
+        d("TAG", "ID: " + userModel.idTocken)
 
         //Disable keyboard on editText
         binding.inputText.showSoftInputOnFocus = false
 
 
-        TitleType.add(AddViewModel(R.drawable.outline_ramen_dining_24, "Food",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "Transport",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_attractions_24, "Fun",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_fitness_center_24, "Sport",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_local_taxi_24, "Taxi",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_medical_services_24, "Medicine",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_school_24, "Education",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_shopping_cart_24, "Shopping",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_waterfall_chart_24, "Stock",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_sports_bar_24, "Alcohol",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_phone_iphone_24, "Phone bill",  1))
-        TitleType.add(AddViewModel(R.drawable.outline_cottage_24, "Home bill",  1))
+        CreateDialog()
 
-        TitleType.add(AddViewModel(R.drawable.outline_directions_bus_24, "15expense",  2))
-
-        TitleType.add(AddViewModel(R.drawable.outline_paid_24, "Salary",  3))
-        TitleType.add(AddViewModel(R.drawable.ic_baseline_bar_chart_24, "Percent",3))
-
-        TitleType.sortBy { t -> t.id}
-
-        setTitle()
-        //setImageListener(binding)
     }
 
-    fun setImageListener(binding: ActivityAddBinding) {
-
-        binding.tytleImage.setImageResource(TitleType[idOfTipe].image)
-    }
-
-    override fun applyTipe(item: AddViewModel) {
+    override fun applyTipe(item: TitleIE) {
         d("TAG", "id: " + item.id)
         idOfTipe = item.id
-        itemAddVM = item
+        titleIE = item
     }
 
-    private fun setTitle() {
+    private fun CreateDialog() {
         binding.tytleImage.setOnClickListener {
 
             bindingDialig = DialogTytleBinding.inflate(layoutInflater)
@@ -113,15 +87,11 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
             tytleIncome.adapter = adapter1
 
             adapter1.notifyDataSetChanged()
-
+            d("TAG", "ID: " + userModel.idTocken)
+            repository.GetTitlesFromFirestore()
             dialog.show()
-
-
         }
 
-        //d("TAG", "id2: " + idOfTipe)
-
-        //setImageListener(binding)
     }
 
     private var boolEquel = false
@@ -147,7 +117,6 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         binding.inputText.setText(String.format("%s%s%s", leftStr, "00", rightStr))
         binding.inputText.setSelection(coursorPos+2)
 
-        //updateText("00")
     }
     fun btnListener_one(View: View){
         updateText("1")
@@ -228,10 +197,8 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         else{
 
             CreateTransaction()
+
         }
-
-
-
     }
     private fun CreateTransaction() {
 
@@ -239,20 +206,24 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
             CreateDate()
 
-                var newT = TransactionViewModel(itemAddVM.image, itemAddVM.title, itemAddVM.id, expression, CreateDate())
-            FragmentTransaction.TransactionList.add(newT)
+                var newT = TransactionVM(titleIE.image, titleIE.title, titleIE.id, expression, CreateDate())
+            //FragmentTransaction.TransactionList.add(newT)
 
+            repository.ThrowTransactionToFirestore(newT)
 
-
+            ChangeActivity()
         }else{
-
-            //d("TAG", "ERROR444")
             val myToast = Toast.makeText(this,"Set title!",Toast.LENGTH_SHORT)
             myToast.setGravity(Gravity.END,200,200)
             myToast.show()
-
         }
-        //FragmentTransaction.TransactionList.add(TransactionViewModel(R.drawable.outline_directions_bus_24, "1income", 1, 24))
+
+    }
+
+    private fun ChangeActivity() {
+        var intent = Intent(this, MainActivity::class.java)
+
+        ContextCompat.startActivity(this, intent, null)
     }
 
     private fun CreateDate(): String {

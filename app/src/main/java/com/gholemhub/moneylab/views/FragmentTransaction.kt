@@ -8,20 +8,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.AddActivity
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.adapters.AdapterAddDialog
 import com.gholemhub.moneylab.adapters.AdapterTransaction
 
 import com.gholemhub.moneylab.databinding.FragmentTransactionBinding
-import com.gholemhub.moneylab.viewmodels.TransactionViewModel
+import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
+import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
 
 class FragmentTransaction : Fragment() {
 
-    companion object {
-        @JvmStatic
-        var TransactionList = mutableListOf<TransactionViewModel>()
-    }
+
 
     lateinit var adapter1: AdapterTransaction
 
@@ -33,9 +30,10 @@ class FragmentTransaction : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,
             R.layout.fragment_transaction, container, false)
 
-        AddActivity.TitleType.sortBy { t -> t.id}
+        userModel.ListOfTitles.sortBy { t -> t.id}
 
         AdapterSetup(binding)
+
 
 
         return binding.root
@@ -45,6 +43,7 @@ class FragmentTransaction : Fragment() {
 
 
     private fun AdapterSetup(binding: FragmentTransactionBinding) {
+        //repository.GetTransactionFromFirestore()
 
             var tytleIncome: RecyclerView = binding.recyclerViewTransaction
             tytleIncome.layoutManager = LinearLayoutManager(context)
