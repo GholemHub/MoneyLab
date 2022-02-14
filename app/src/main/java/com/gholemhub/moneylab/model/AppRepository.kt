@@ -30,8 +30,6 @@ class AppRepository {
         @JvmStatic
 
         lateinit var userModel: User
-
-
     }
 
     //private lateinit var launcher: ActivityResultLauncher<Intent>
@@ -207,6 +205,8 @@ class AppRepository {
 
         user.ListOfTitles.add(TitleIE(R.drawable.outline_paid_24, "Salary",  3))
         user.ListOfTitles.add(TitleIE(R.drawable.ic_baseline_bar_chart_24, "Percent",3))
+
+        user.ListOfTransactions.add(TransactionVM(R.drawable.ic_baseline_bar_chart_24, "Percent",3, ))
 
 
         user.ListOfTitles.sortBy { t -> t.id}

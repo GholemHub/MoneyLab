@@ -43,7 +43,7 @@ class FragmentTransaction : Fragment() {
 
 
     private fun AdapterSetup(binding: FragmentTransactionBinding) {
-        //repository.GetTransactionFromFirestore()
+        repository.GetTransactionFromFirestore()
 
             var tytleIncome: RecyclerView = binding.recyclerViewTransaction
             tytleIncome.layoutManager = LinearLayoutManager(context)
