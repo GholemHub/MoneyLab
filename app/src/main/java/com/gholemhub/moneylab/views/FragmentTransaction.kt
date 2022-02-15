@@ -1,6 +1,7 @@
 package com.gholemhub.moneylab.views
 
 import android.os.Bundle
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,6 @@ import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
 
 class FragmentTransaction : Fragment() {
 
-
-
     lateinit var adapter1: AdapterTransaction
 
     override fun onCreateView(
@@ -30,14 +29,18 @@ class FragmentTransaction : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,
             R.layout.fragment_transaction, container, false)
 
+        repository.GetTransactionFromFirestore()
         userModel.ListOfTitles.sortBy { t -> t.id}
+
+
+
+        //d("TAG", "Size: ${userModel.ListOfTransactions.size}")
 
         AdapterSetup(binding)
 
 
 
         return binding.root
-//        return inflater.inflate(R.layout.fragment_add, container, false)
     }
 
 

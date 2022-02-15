@@ -31,8 +31,6 @@ class AppRepository {
 
         lateinit var userModel: User
     }
-
-    //private lateinit var launcher: ActivityResultLauncher<Intent>
     private var auth: FirebaseAuth
 
     private lateinit var account: GoogleSignInAccount
@@ -48,19 +46,23 @@ class AppRepository {
        this.auth = Firebase.auth
        this.fStore = FirebaseFirestore.getInstance()
 
-
        launcher = authenticationActivity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
            try {
                account = task.getResult(ApiException::class.java)
 
+
                if(account != null){
                    firebaseAuthWithGoogle(account.idToken!!)
+                   /* var intent = Intent(authenticationActivity, MainActivity::class.java)
+
+                    startActivity(authenticationActivity, intent, null)*/
                }
            }catch (e: ApiException){
-              d("TAG", "ApiException: $e")
+               d("TAG", "ApiException: $e")
            }
        }
+
    }
 
 
@@ -85,7 +87,7 @@ class AppRepository {
                 for(i in Testlist){
                     userModel.ListOfTitles.clear()
                     userModel.ListOfTitles = i.ListOfTitles
-                    d("TAG", "Title: " + i.idTocken)
+                    d("TAG", "Title tocken: " + i.idTocken)
                 }
             }
 
@@ -93,6 +95,8 @@ class AppRepository {
     }
 
     fun GetTransactionFromFirestore(){
+
+        //signInWithGoogle()
 
         fStore.collection("Users").addSnapshotListener(object : EventListener<QuerySnapshot>{
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -104,6 +108,7 @@ class AppRepository {
                 //Taking the data from Firestore to class USER
                 for(dc : DocumentChange in value?.documentChanges!!){
                     if(dc.type == DocumentChange.Type.ADDED){
+
                         Testlist.add(dc.document.toObject(User::class.java))
                     }
                 }
@@ -112,8 +117,9 @@ class AppRepository {
                 for(i in Testlist){
                     userModel.ListOfTransactions.clear()
                     userModel.ListOfTransactions = i.ListOfTransactions
-                    d("TAG", "Title: " + i.idTocken)
+                    d("TAG", "Transaction tocken: " + i.idTocken)
                 }
+                Testlist.clear()
             }
 
         })
@@ -210,26 +216,7 @@ class AppRepository {
 
 
         user.ListOfTitles.sortBy { t -> t.id}
-/*
-        TitleType.add(TitleIE(R.drawable.outline_ramen_dining_24, "Food",  1))
-        TitleType.add(TitleIE(R.drawable.outline_directions_bus_24, "Transport",  1))
-        TitleType.add(TitleIE(R.drawable.outline_attractions_24, "Fun",  1))
-        TitleType.add(TitleIE(R.drawable.outline_fitness_center_24, "Sport",  1))
-        TitleType.add(TitleIE(R.drawable.outline_local_taxi_24, "Taxi",  1))
-        TitleType.add(TitleIE(R.drawable.outline_medical_services_24, "Medicine",  1))
-        TitleType.add(TitleIE(R.drawable.outline_school_24, "Education",  1))
-        TitleType.add(TitleIE(R.drawable.outline_shopping_cart_24, "Shopping",  1))
-        TitleType.add(TitleIE(R.drawable.outline_waterfall_chart_24, "Stock",  1))
-        TitleType.add(TitleIE(R.drawable.outline_sports_bar_24, "Alcohol",  1))
-        TitleType.add(TitleIE(R.drawable.outline_phone_iphone_24, "Phone bill",  1))
-        TitleType.add(TitleIE(R.drawable.outline_cottage_24, "Home bill",  1))
 
-        TitleType.add(TitleIE(R.drawable.outline_directions_bus_24, "15expense",  2))
-
-        TitleType.add(TitleIE(R.drawable.outline_paid_24, "Salary",  3))
-        TitleType.add(TitleIE(R.drawable.ic_baseline_bar_chart_24, "Percent",3))
-
-        TitleType.sortBy { t -> t.id}*/
     }
 
     private fun getClient(): GoogleSignInClient {

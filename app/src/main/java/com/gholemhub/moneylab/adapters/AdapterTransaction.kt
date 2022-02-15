@@ -15,8 +15,8 @@ import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return if(userModel.ListOfTransactions[position].id == 1) 0
-        else if(userModel.ListOfTransactions[position].id == 3) 1
+        return if(userModel.ListOfTransactions[position].id == 1) 1
+        else if(userModel.ListOfTransactions[position].id == 3) 0
         else 2
     }
 
@@ -32,28 +32,28 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_line_layout, parent, false)
             viewHolderDeliver(view)
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(userModel.ListOfTransactions[position].id == 3) {
+        if(userModel.ListOfTransactions[position].id == 1) {
             d("TAG", "" + userModel.ListOfTransactions[position].id)
             (holder as viewHolderInfo).bindItems(userModel.ListOfTransactions[position])
             holder.table.setOnClickListener {
 
             }
         }
-        else if(userModel.ListOfTransactions[position].id == 1) {
+        else if(userModel.ListOfTransactions[position].id == 3) {
             //Log.d("TAG", "HER")
             (holder as AdapterTransaction.viewHolderData).bindItems(userModel.ListOfTransactions[position])
         }
-        else if(userModel.ListOfTransactions[position].id == 1) {
+        else if(userModel.ListOfTransactions[position].id == 3) {
             //Log.d("TAG", "HER")
             (holder as AdapterTransaction.viewHolderData).bindItems(userModel.ListOfTransactions[position])
         }
     }
 
     override fun getItemCount(): Int {
+        d("TAG", "size: ${userModel.ListOfTransactions.size}")
         return userModel.ListOfTransactions.size
     }
 
@@ -66,11 +66,11 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bindItems(item : TransactionVM){
             title.text = item.title
             image.setImageResource(item.image)
+            count.text = item.count.toString()
         }
     }
     inner class viewHolderData(itemView: View): RecyclerView.ViewHolder(itemView){
         var table = itemView.findViewById<TableRow>(R.id.transaction_data_table)
-        //var title: TextView = itemView.findViewById<TextView>(R.id.transaction_data1)
 
         fun bindItems(item : TransactionVM){
             //title.text = item.title
