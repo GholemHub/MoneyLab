@@ -15,8 +15,6 @@
              android:layout_height="match_parent"
              tools:context=".views.FragmentTransaction">
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_transaction"
         android:layout_width="match_parent"

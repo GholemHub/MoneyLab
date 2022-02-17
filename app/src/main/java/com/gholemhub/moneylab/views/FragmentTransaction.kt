@@ -1,21 +1,24 @@
 package com.gholemhub.moneylab.views
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log.d
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.adapters.AdapterTransaction
-
+import com.gholemhub.moneylab.classes.ItemSelectionDecoration
 import com.gholemhub.moneylab.databinding.FragmentTransactionBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
-import com.gholemhub.moneylab.classes.TransactionVM
 import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
+
 
 class FragmentTransaction : Fragment() {
 
@@ -34,7 +37,9 @@ class FragmentTransaction : Fragment() {
 
 
 
-        //d("TAG", "Size: ${userModel.ListOfTransactions.size}")
+
+        CalculateMoney()
+
 
         AdapterSetup(binding)
 
@@ -43,17 +48,31 @@ class FragmentTransaction : Fragment() {
         return binding.root
     }
 
+    private fun CalculateMoney() {
+
+
+
+        (activity as MainActivity).supportActionBar?.title = userModel.showMoney().toString()
+
+    }
 
 
     private fun AdapterSetup(binding: FragmentTransactionBinding) {
         repository.GetTransactionFromFirestore()
 
-            var tytleIncome: RecyclerView = binding.recyclerViewTransaction
-            tytleIncome.layoutManager = LinearLayoutManager(context)
-            adapter1 = AdapterTransaction()
-            tytleIncome.adapter = adapter1
 
-            adapter1.notifyDataSetChanged()
+            var recyclerView: RecyclerView = binding.recyclerViewTransaction
+       // var linMan = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        //recyclerView.layoutManager = linMan
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        //var Diliver = DividerItemDecoration(recyclerView.context, linMan.orientation )
+        adapter1 = AdapterTransaction()
+        var itemSelectionDecoration = ItemSelectionDecoration()
+        //recyclerView.addItemDecoration(itemSelectionDecoration)
+
+        recyclerView.adapter = adapter1
+
+        adapter1.notifyDataSetChanged()
 
     }
 }

@@ -17,5 +17,9 @@
     <fragment android:id="@+id/fragmentChart" android:name="com.gholemhub.moneylab.views.FragmentChart"
               android:label="fragment_chart" tools:layout="@layout/fragment_chart"/>
     <fragment android:id="@+id/fragmentPlaning" android:name="com.gholemhub.moneylab.views.FragmentPlaning"
-              android:label="fragment_planing" tools:layout="@layout/fragment_planing"/>
+              android:label="fragment_planing" tools:layout="@layout/fragment_planing">
+        <action
+            android:id="@+id/action_fragmentPlaning_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
 </navigation>

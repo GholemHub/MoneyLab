@@ -14,7 +14,7 @@ class AuthenticationActivity : AppCompatActivity() {
     companion object {
         @JvmStatic
 
-        lateinit var userModel: User
+
         lateinit var repository: AppRepository
 
     }

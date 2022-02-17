@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/fragmentHome"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_data_saver_on_24"
+        />
+    <item android:id="@+id/fragmentLogout"
+        android:title="Logout"
+        android:icon="@drawable/common_full_open_on_phone"
+        app:showAsAction="never"
+        />
+
+</menu>

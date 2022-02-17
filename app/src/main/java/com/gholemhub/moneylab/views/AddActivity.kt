@@ -206,8 +206,15 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
             CreateDate()
 
-                var newT = TransactionVM(titleIE.image, titleIE.title, titleIE.id, expression, CreateDate())
-            //FragmentTransaction.TransactionList.add(newT)
+            var id = 0
+
+            (if (titleIE.id == 3) {
+                id = 1
+            } else {
+                id = titleIE.id
+            })
+
+            var newT = TransactionVM(titleIE.image, titleIE.title, id, expression, CreateDate())
 
             repository.ThrowTransactionToFirestore(newT)
 
@@ -227,7 +234,7 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     }
 
     private fun CreateDate(): String {
-        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        val sdf = SimpleDateFormat("yyyy.MM.dd")
         val date = Date()
         return sdf.format(date)
     }

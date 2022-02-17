@@ -1,5 +1,6 @@
 package com.gholemhub.moneylab.model
 
+import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.util.Log.d
@@ -54,9 +55,7 @@ class AppRepository {
 
                if(account != null){
                    firebaseAuthWithGoogle(account.idToken!!)
-                   /* var intent = Intent(authenticationActivity, MainActivity::class.java)
 
-                    startActivity(authenticationActivity, intent, null)*/
                }
            }catch (e: ApiException){
                d("TAG", "ApiException: $e")
@@ -95,8 +94,6 @@ class AppRepository {
     }
 
     fun GetTransactionFromFirestore(){
-
-        //signInWithGoogle()
 
         fStore.collection("Users").addSnapshotListener(object : EventListener<QuerySnapshot>{
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -160,6 +157,11 @@ class AppRepository {
     fun ThrowTransactionToFirestore(transaction: TransactionVM){
         var documentReference: DocumentReference = fStore.collection("Users").document(userId)
 
+        if(transaction.id == 3) {
+            userModel.addMoney(transaction.count)
+        }else{
+            userModel.minusMoney(transaction.count)
+        }
         userModel.ListOfTransactions.add(transaction)
 
         documentReference.set(userModel).addOnSuccessListener {
@@ -190,6 +192,7 @@ class AppRepository {
         }.addOnFailureListener{
             Toast.makeText(authenticationActivity, "Failed", Toast.LENGTH_LONG).show()
         }
+
     }
 
     private fun AddTitles(user: User) {
@@ -212,9 +215,6 @@ class AppRepository {
         user.ListOfTitles.add(TitleIE(R.drawable.outline_paid_24, "Salary",  3))
         user.ListOfTitles.add(TitleIE(R.drawable.ic_baseline_bar_chart_24, "Percent",3))
 
-        user.ListOfTransactions.add(TransactionVM(R.drawable.ic_baseline_bar_chart_24, "Percent",3, ))
-
-
         user.ListOfTitles.sortBy { t -> t.id}
 
     }
@@ -233,5 +233,9 @@ class AppRepository {
     fun signInWithGoogle(){
         val signInClient = getClient()
         launcher.launch(signInClient.signInIntent)
+    }
+    fun signOuthFromGoogle(activity: Activity){
+        auth.signOut()
+        activity.finish()
     }
 }
