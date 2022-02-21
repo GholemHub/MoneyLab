@@ -29,43 +29,43 @@ class AppRepository {
 
     companion object {
         @JvmStatic
-
+        lateinit var repository: AppRepository
         lateinit var userModel: User
     }
     private var auth: FirebaseAuth
 
     private lateinit var account: GoogleSignInAccount
-    private var launcher: ActivityResultLauncher<Intent>
+    private lateinit var launcher: ActivityResultLauncher<Intent>
 
     private var fStore: FirebaseFirestore
     private lateinit var userId: String
 
-    private var authenticationActivity: AuthenticationActivity
+    private var activity: Activity
 
-   constructor( i: AuthenticationActivity){
-       this.authenticationActivity = i
+   constructor( activity: Activity){
+       this.activity = activity
        this.auth = Firebase.auth
        this.fStore = FirebaseFirestore.getInstance()
 
-       launcher = authenticationActivity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-           val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-           try {
-               account = task.getResult(ApiException::class.java)
-
-
-               if(account != null){
-                   firebaseAuthWithGoogle(account.idToken!!)
-
-               }
-           }catch (e: ApiException){
-               d("TAG", "ApiException: $e")
-           }
-       }
-
+       StartLauncher()
    }
 
+    private fun StartLauncher() {
+        launcher = (activity as AuthenticationActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            try {
+                account = task.getResult(ApiException::class.java)
 
-//TODO optimizate lists
+                if(account != null){
+                    firebaseAuthWithGoogle(account.idToken!!)
+                }
+            }catch (e: ApiException){
+                d("TAG", "ApiException: $e")
+            }
+        }
+    }
+
+    //TODO optimizate lists
     fun GetTitlesFromFirestore(){
         fStore.collection("Users").addSnapshotListener(object : EventListener<QuerySnapshot>{
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -136,6 +136,9 @@ class AppRepository {
                 //if Yes create the new user in FirestoreDB
                 CreateUserOnDB()
 
+                var intent = Intent(activity, MainActivity::class.java)
+                startActivity(activity, intent, null)
+
             }else{
                 d("TAG", "Google sign in error")
             }
@@ -143,14 +146,15 @@ class AppRepository {
     }
 
     fun chechAuthState(){
+        d("TAG", "chechAuthState")
         //if user is logged in than skip this active
         if(auth.currentUser != null){
-            var intent = Intent(authenticationActivity, MainActivity::class.java)
+            var intent = Intent(activity, MainActivity::class.java)
             //TODO change !! to If statement
             //if(auth.currentUser!!.uid != null)
             userId = auth.currentUser!!.uid
             userModel = User(userId)
-            startActivity(authenticationActivity, intent, null)
+            startActivity(activity, intent, null)
         }
     }
 
@@ -166,10 +170,10 @@ class AppRepository {
 
         documentReference.set(userModel).addOnSuccessListener {
 
-            Toast.makeText(authenticationActivity, "Success", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
 
         }.addOnFailureListener{
-            Toast.makeText(authenticationActivity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -187,10 +191,10 @@ class AppRepository {
 
         documentReference.set(user).addOnSuccessListener {
 
-            Toast.makeText(authenticationActivity, "Success", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
 
         }.addOnFailureListener{
-            Toast.makeText(authenticationActivity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show()
         }
 
     }
@@ -220,19 +224,24 @@ class AppRepository {
     }
 
     private fun getClient(): GoogleSignInClient {
-
+        d("TAG", "getClient")
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(authenticationActivity.getString(R.string.default_web_client_id))
+            .requestIdToken(activity.getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        return GoogleSignIn.getClient(authenticationActivity, gso)
+        return GoogleSignIn.getClient(activity, gso)
     }
 
-    fun signInWithGoogle(){
+    fun signInWithGoogle(activity: Activity){
+        d("TAG", "signInWithGoogle")
         val signInClient = getClient()
         launcher.launch(signInClient.signInIntent)
+
+
+
+        //startActivity(activity, Intent(activity, MainActivity::class.java), null)
     }
     fun signOuthFromGoogle(activity: Activity){
         auth.signOut()

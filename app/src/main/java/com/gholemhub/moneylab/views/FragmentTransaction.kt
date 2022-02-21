@@ -16,8 +16,9 @@ import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.adapters.AdapterTransaction
 import com.gholemhub.moneylab.classes.ItemSelectionDecoration
 import com.gholemhub.moneylab.databinding.FragmentTransactionBinding
+import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
-import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
+
 
 
 class FragmentTransaction : Fragment() {
@@ -35,15 +36,8 @@ class FragmentTransaction : Fragment() {
         repository.GetTransactionFromFirestore()
         userModel.ListOfTitles.sortBy { t -> t.id}
 
-
-
-
         CalculateMoney()
-
-
         AdapterSetup(binding)
-
-
 
         return binding.root
     }

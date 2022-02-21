@@ -2,22 +2,24 @@ package com.gholemhub.moneylab.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log.d
 import com.gholemhub.moneylab.classes.User
 
 import com.gholemhub.moneylab.databinding.ActivityAuthenticationBinding
 import com.gholemhub.moneylab.model.AppRepository
+import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 
 
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
 
-    companion object {
+    /*companion object {
         @JvmStatic
 
 
         lateinit var repository: AppRepository
 
-    }
+    }*/
 
     //private lateinit var repository: AppRepository
 
@@ -30,11 +32,12 @@ class AuthenticationActivity : AppCompatActivity() {
 
         repository = AppRepository(this)
 
-        repository.chechAuthState()
+        //repository.chechAuthState()
 
         binding.GoogleSignInButton.setOnClickListener {
-            repository.signInWithGoogle()
-            repository.chechAuthState()
+            repository.signInWithGoogle(this)
+
+                //repository.chechAuthState()
 
         }
 

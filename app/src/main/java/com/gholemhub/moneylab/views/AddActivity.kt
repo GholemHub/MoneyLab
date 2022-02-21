@@ -21,7 +21,8 @@ import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
-import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
+import com.gholemhub.moneylab.model.AppRepository.Companion.repository
+
 import com.gholemhub.moneylab.views.FragmentTransaction
 import com.gholemhub.moneylab.views.MainActivity
 import org.mariuszgromada.math.mxparser.*

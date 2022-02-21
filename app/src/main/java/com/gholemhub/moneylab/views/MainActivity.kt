@@ -1,19 +1,28 @@
 package com.gholemhub.moneylab.views
 
+import android.content.ClipData
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.gholemhub.moneylab.AddActivity
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
+import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 import com.gholemhub.moneylab.viewmodels.MainActivityViewModel
-import com.gholemhub.moneylab.views.AuthenticationActivity.Companion.repository
+
 
 class MainActivity : AppCompatActivity(), LifecycleOwner{
 
@@ -28,7 +37,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
         setContentView(view)
 
         MenuListener()
-        var m = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        //var m = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
     }
 
@@ -40,18 +49,19 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-           // R.id.fragmentHome ->
-            R.id.fragmentLogout -> repository.signOuthFromGoogle(this)
 
 
+        var navHostFragment = supportFragmentManager.findFragmentById(R.id.Fragment)
+        var navController = navHostFragment?.findNavController()
+        d("TAG", "NAVSETS")
+        return item.onNavDestinationSelected(navController!!) || super.onOptionsItemSelected(item)
+    }
 
-        }
-
-
-
-
-        return super.onOptionsItemSelected(item)
+    private fun ReplaseFragment(fragment: Fragment) {
+        var fragmentManager = supportFragmentManager
+        var transition = fragmentManager.beginTransaction()
+        transition.replace(R.id.Fragment, fragment)
+        transition.commit()
     }
 
     private fun MenuListener() {
@@ -60,11 +70,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
 
             //var addFragment = FragmentTransaction()
 
-
-
-
         var navigationController = findNavController(R.id.Fragment)
         binding.bnv?.setupWithNavController(navigationController)
+
 
 
         binding.fab?.setOnClickListener {
