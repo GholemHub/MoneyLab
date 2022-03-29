@@ -56,7 +56,28 @@ class AppRepository {
             try {
                 account = task.getResult(ApiException::class.java)
 
+                if(account == null){
+                    d("TAG", "NOT Registered")
+                    firebaseRegWithGoogle(account.idToken!!)
+                }else{
+                    d("TAG", "Registered")
+                    firebaseAuthWithGoogle(account.idToken!!)
+
+                }
+            }catch (e: ApiException){
+                d("TAG", "ApiException: $e")
+            }
+        }
+    }
+
+     fun CheckLauncher() {
+        launcher = (activity as AuthenticationActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            try {
+                account = task.getResult(ApiException::class.java)
+
                 if(account != null){
+                    d("TAG", "Registered")
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
             }catch (e: ApiException){
@@ -65,11 +86,12 @@ class AppRepository {
         }
     }
 
+    var Testlist = mutableListOf<User>()
     //TODO optimizate lists
     fun GetTitlesFromFirestore(){
         fStore.collection("Users").addSnapshotListener(object : EventListener<QuerySnapshot>{
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                var Testlist = mutableListOf<User>()
+
                 if(error != null){
                     d("TAG", error.message.toString())
                     return
@@ -123,18 +145,39 @@ class AppRepository {
     }
 
 //create question if ID is unic
-    private fun firebaseAuthWithGoogle(idTocken: String){
+    private fun firebaseRegWithGoogle(idTocken: String){
         val credential = GoogleAuthProvider.getCredential(idTocken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if(it.isSuccessful){
-
-
 
                 userId = auth.currentUser!!.uid
                 userModel = User(userId)
 
                 //if Yes create the new user in FirestoreDB
                 CreateUserOnDB()
+
+                var intent = Intent(activity, MainActivity::class.java)
+                startActivity(activity, intent, null)
+
+                activity.finish()
+
+                d("TAG", "Google sign in done")
+            }else{
+                d("TAG", "Google sign in error")
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idTocken: String){
+        val credential = GoogleAuthProvider.getCredential(idTocken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if(it.isSuccessful){
+
+                userId = auth.currentUser!!.uid
+                userModel = User(userId)
+
+                //if Yes create the new user in FirestoreDB
+                //CreateUserOnDB()
 
                 var intent = Intent(activity, MainActivity::class.java)
                 startActivity(activity, intent, null)
@@ -242,9 +285,6 @@ class AppRepository {
         val signInClient = getClient()
         launcher.launch(signInClient.signInIntent)
 
-
-
-        //startActivity(activity, Intent(activity, MainActivity::class.java), null)
     }
     fun signOuthFromGoogle(activity: Activity){
         auth.signOut()

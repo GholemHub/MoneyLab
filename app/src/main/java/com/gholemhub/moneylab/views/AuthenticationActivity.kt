@@ -34,7 +34,8 @@ class AuthenticationActivity : AppCompatActivity() {
 
         repository = AppRepository(this)
 
-        //repository.chechAuthState()
+        repository.signInWithGoogle(this)
+
 
         binding.GoogleSignInButton.setOnClickListener {
             repository.signInWithGoogle(this)
