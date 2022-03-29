@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
         setContentView(view)
 
         MenuListener()
+
+
         //var m = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
     }
@@ -78,5 +80,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
         binding.fab?.setOnClickListener {
             startActivity(Intent(this@MainActivity, AddActivity::class.java))
         }
+
+
     }
 }

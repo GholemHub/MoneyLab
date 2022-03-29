@@ -65,6 +65,9 @@ dependencies {
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
 
+    implementation 'com.google.android.gms:play-services-identity:8.1.0'
+
+
     //Circleimage
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 

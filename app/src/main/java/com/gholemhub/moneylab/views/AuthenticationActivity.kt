@@ -1,8 +1,10 @@
 package com.gholemhub.moneylab.views
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log.d
+import androidx.core.content.ContextCompat
 import com.gholemhub.moneylab.classes.User
 
 import com.gholemhub.moneylab.databinding.ActivityAuthenticationBinding
@@ -40,6 +42,7 @@ class AuthenticationActivity : AppCompatActivity() {
                 //repository.chechAuthState()
 
         }
+
 
     }
 

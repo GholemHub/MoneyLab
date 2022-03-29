@@ -127,7 +127,7 @@ class AppRepository {
         val credential = GoogleAuthProvider.getCredential(idTocken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if(it.isSuccessful){
-                Log.d("TAG", "Google sign in done")
+
 
 
                 userId = auth.currentUser!!.uid
@@ -139,6 +139,9 @@ class AppRepository {
                 var intent = Intent(activity, MainActivity::class.java)
                 startActivity(activity, intent, null)
 
+                activity.finish()
+
+                d("TAG", "Google sign in done")
             }else{
                 d("TAG", "Google sign in error")
             }
