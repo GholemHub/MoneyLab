@@ -2,7 +2,6 @@ package com.gholemhub.moneylab.model
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.util.Log.d
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -42,7 +41,7 @@ class AppRepository {
 
     private var activity: Activity
 
-   constructor( activity: Activity){
+   constructor( activity: AuthenticationActivity){
        this.activity = activity
        this.auth = Firebase.auth
        this.fStore = FirebaseFirestore.getInstance()
@@ -62,7 +61,6 @@ class AppRepository {
                 }else{
                     d("TAG", "Registered")
                     firebaseAuthWithGoogle(account.idToken!!)
-
                 }
             }catch (e: ApiException){
                 d("TAG", "ApiException: $e")
@@ -93,7 +91,7 @@ class AppRepository {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
                 if(error != null){
-                    d("TAG", error.message.toString())
+                    d("TAG", "ERROR: " + error.message.toString())
                     return
                 }
                 //Taking the data from Firestore to class USER
@@ -108,10 +106,9 @@ class AppRepository {
                 for(i in Testlist){
                     userModel.ListOfTitles.clear()
                     userModel.ListOfTitles = i.ListOfTitles
-                    d("TAG", "Title tocken: " + i.idTocken)
+                    d("TAG", "Title tocken1: " + i.idTocken)
                 }
             }
-
         })
     }
 
@@ -119,26 +116,33 @@ class AppRepository {
 
         fStore.collection("Users").addSnapshotListener(object : EventListener<QuerySnapshot>{
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                var Testlist = mutableListOf<User>()
+                var Userslist = mutableListOf<User>()
                 if(error != null){
-                    d("TAG", error.message.toString())
+                    d("TAG", "Error: " + error.message.toString())
                     return
                 }
+
+
                 //Taking the data from Firestore to class USER
                 for(dc : DocumentChange in value?.documentChanges!!){
                     if(dc.type == DocumentChange.Type.ADDED){
-
-                        Testlist.add(dc.document.toObject(User::class.java))
+                        Userslist.add(dc.document.toObject(User::class.java))
                     }
+                   // d("TAG", "TEST LOG: ${dc.type.name}")
+
                 }
 
                 //Replase Users transactions
-                for(i in Testlist){
-                    userModel.ListOfTransactions.clear()
-                    userModel.ListOfTransactions = i.ListOfTransactions
-                    d("TAG", "Transaction tocken: " + i.idTocken)
+                for(i in Userslist){
+                    //userModel.ListOfTransactions.clear()
+                        if(userModel.idTocken == i.idTocken){
+                            userModel.ListOfTransactions = i.ListOfTransactions
+                            d("TAG", "XXXXXXXXX ${i.ListOfTransactions}")
+
+                            d("TAG", "Transaction tocken: " + i.Money)
+                        }
                 }
-                Testlist.clear()
+                Userslist.clear()
             }
 
         })
@@ -156,7 +160,9 @@ class AppRepository {
                 //if Yes create the new user in FirestoreDB
                 CreateUserOnDB()
 
-                var intent = Intent(activity, MainActivity::class.java)
+                repository.GetTransactionFromFirestore()
+
+                var intent = Intent((activity as AuthenticationActivity), MainActivity::class.java)
                 startActivity(activity, intent, null)
 
                 activity.finish()
@@ -178,7 +184,7 @@ class AppRepository {
 
                 //if Yes create the new user in FirestoreDB
                 //CreateUserOnDB()
-
+                repository.GetTransactionFromFirestore()
                 var intent = Intent(activity, MainActivity::class.java)
                 startActivity(activity, intent, null)
 
@@ -215,9 +221,7 @@ class AppRepository {
         userModel.ListOfTransactions.add(transaction)
 
         documentReference.set(userModel).addOnSuccessListener {
-
             Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
-
         }.addOnFailureListener{
             Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show()
         }

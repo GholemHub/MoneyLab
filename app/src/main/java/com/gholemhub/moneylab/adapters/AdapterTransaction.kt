@@ -52,7 +52,7 @@ class AdapterTransaction: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         if(userModel.ListOfTransactions[position].id == 1) {
-            d("TAG", "" + userModel.ListOfTransactions[position].id)
+            d("TAG", "ERROR num: " + userModel.ListOfTransactions[position].id)
             (holder as viewHolderInfo).bindItems(userModel.ListOfTransactions[position])
             holder.table.setOnClickListener {
 

@@ -1,8 +1,11 @@
 package com.gholemhub.moneylab.views
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,48 +28,72 @@ class FragmentTransaction : Fragment() {
 
     lateinit var adapter1: AdapterTransaction
 
+lateinit var binding: FragmentTransactionBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,
+        binding = DataBindingUtil.inflate<FragmentTransactionBinding>(inflater,
             R.layout.fragment_transaction, container, false)
 
-        repository.GetTransactionFromFirestore()
+
+
+
+        //SystemClock.sleep(7000);
+
         userModel.ListOfTitles.sortBy { t -> t.id}
 
+
+        if(userModel == null) {
+            d("TAG", "EEEEEEEEE")
+        }else{
+            //userModel.ListOfTransactions
+            d("TAG", "NNNNNNN ${userModel.ListOfTransactions}")
+        }
+        //d("TAG", "list of titles: ${userModel.ListOfTitles[0]}")
+
         CalculateMoney()
-        AdapterSetup(binding)
+
 
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        AdapterSetup(binding)
+    }
+
     private fun CalculateMoney() {
 
-
-
+        d("TAG", "Money of user" + userModel.showMoney().toString())
         (activity as MainActivity).supportActionBar?.title = userModel.showMoney().toString()
+
 
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun AdapterSetup(binding: FragmentTransactionBinding) {
         repository.GetTransactionFromFirestore()
 
 
-            var recyclerView: RecyclerView = binding.recyclerViewTransaction
-       // var linMan = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        //recyclerView.layoutManager = linMan
+        var recyclerView: RecyclerView = binding.recyclerViewTransaction
         recyclerView.layoutManager = LinearLayoutManager(context)
-        //var Diliver = DividerItemDecoration(recyclerView.context, linMan.orientation )
         adapter1 = AdapterTransaction()
         var itemSelectionDecoration = ItemSelectionDecoration()
         //recyclerView.addItemDecoration(itemSelectionDecoration)
-
+        //adapter1.notifyDataSetChanged()
         recyclerView.adapter = adapter1
 
+        d("TAG", "Adapter 1")
+        //(recyclerView.adapter as AdapterTransaction).notifyDataSetChanged()
         adapter1.notifyDataSetChanged()
+
+
+
+
 
     }
 }

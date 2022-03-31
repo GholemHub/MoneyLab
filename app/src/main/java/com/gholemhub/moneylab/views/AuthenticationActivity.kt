@@ -15,22 +15,14 @@ import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
 
-    /*companion object {
-        @JvmStatic
-
-
-        lateinit var repository: AppRepository
-
-    }*/
-
-    //private lateinit var repository: AppRepository
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         repository = AppRepository(this)
 
@@ -40,12 +32,8 @@ class AuthenticationActivity : AppCompatActivity() {
         binding.GoogleSignInButton.setOnClickListener {
             repository.signInWithGoogle(this)
 
-                //repository.chechAuthState()
-
         }
 
 
     }
-
-
 }
