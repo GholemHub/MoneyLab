@@ -3,26 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/preAuthenticationFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.gholemhub.moneylab.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
+        android:id="@+id/preAuthenticationFragment"
+        android:name="com.gholemhub.moneylab.views.PreAuthenticationFragment"
+        android:label="fragment_pre_authentication"
+        tools:layout="@layout/fragment_pre_authentication" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_preAuthenticationFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_preAuthenticationFragment_to_fragmentTransaction2"
+            app:destination="@id/fragmentTransaction2" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.gholemhub.moneylab.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        android:id="@+id/authenticationFragment"
+        android:name="com.gholemhub.moneylab.views.AuthenticationFragment"
+        android:label="fragment_authentication"
+        tools:layout="@layout/fragment_authentication" />
+    <fragment
+        android:id="@+id/fragmentTransaction2"
+        android:name="com.gholemhub.moneylab.views.FragmentTransaction"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
 </navigation>

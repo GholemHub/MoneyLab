@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "292272453790",
-    "project_id": "moneylab-346914",
-    "storage_bucket": "moneylab-346914.appspot.com"
+    "project_number": "836282024633",
+    "project_id": "moneylab-a0b0a",
+    "storage_bucket": "moneylab-a0b0a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:292272453790:android:4c0a7a192f533ec9d6e38f",
+        "mobilesdk_app_id": "1:836282024633:android:ed0217283a7099c9cf5168",
         "android_client_info": {
           "package_name": "com.gholemhub.moneylab"
         }
       },
       "oauth_client": [
         {
-          "client_id": "292272453790-n677qha315n0ovgmdn33162uajt0g4ge.apps.googleusercontent.com",
+          "client_id": "836282024633-8d5nbrm85k1h9jdpdbgg343tpq6msj20.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gholemhub.moneylab",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "292272453790-7rao2g8lb5bdumjja84pmeutr6314hbt.apps.googleusercontent.com",
+          "client_id": "836282024633-8j4kr3a06ne81g5bte7ipm66i6u7pj7b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA0E1ymIvk5VQcvSusBFOVv0RnYYB7Sgfk"
+          "current_key": "AIzaSyA3guTluEAjd9w4N7ah83QsDoTtmoUvWTI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "292272453790-7rao2g8lb5bdumjja84pmeutr6314hbt.apps.googleusercontent.com",
+              "client_id": "836282024633-8j4kr3a06ne81g5bte7ipm66i6u7pj7b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

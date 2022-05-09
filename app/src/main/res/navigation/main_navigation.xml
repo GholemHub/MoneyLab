@@ -2,8 +2,36 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_navigation"
-            app:startDestination="@id/fragmentAdd">
+            app:startDestination="@id/preAuthenticationFragment">
 
+    <fragment
+        android:id="@+id/fragmentTransaction2"
+        android:name="com.gholemhub.moneylab.views.FragmentTransaction"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
+    <fragment
+        android:id="@+id/preAuthenticationFragment"
+        android:name="com.gholemhub.moneylab.views.PreAuthenticationFragment"
+        android:label="fragment_pre_authentication"
+        tools:layout="@layout/fragment_pre_authentication">
+        <action
+            android:id="@+id/action_preAuthenticationFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_preAuthenticationFragment_to_fragmentTransaction2"
+            app:destination="@id/fragmentTransaction2" />
+    </fragment>
+    <action
+        android:id="@+id/action_preAuthenticationFragment_to_authenticationFragment"
+        app:destination="@id/authenticationFragment" />
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.gholemhub.moneylab.views.AuthenticationFragment"
+        android:label="fragment_authentication"
+        tools:layout="@layout/fragment_authentication" />
+    <action
+        android:id="@+id/action_preAuthenticationFragment_to_fragmentTransaction2"
+        app:destination="@id/fragmentTransaction2" />
     <fragment android:id="@+id/fragmentAdd" android:name="com.gholemhub.moneylab.views.FragmentTransaction"
               android:label="fragment_add" tools:layout="@layout/fragment_transaction"/>
     <fragment android:id="@+id/fragmentHistory" android:name="com.gholemhub.moneylab.views.FragmentHistory"

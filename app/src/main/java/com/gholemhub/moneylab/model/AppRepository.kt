@@ -30,8 +30,10 @@ class AppRepository {
         @JvmStatic
         lateinit var repository: AppRepository
         lateinit var userModel: User
+        lateinit var authLogOut: FirebaseAuth
+        lateinit var auth: FirebaseAuth
     }
-    private var auth: FirebaseAuth
+
 
     private lateinit var account: GoogleSignInAccount
     private lateinit var launcher: ActivityResultLauncher<Intent>
@@ -39,37 +41,40 @@ class AppRepository {
     private var fStore: FirebaseFirestore
     private lateinit var userId: String
 
-    private var activity: Activity
+    private var activity: Activity = MainActivity()
 
-   constructor( activity: AuthenticationActivity){
-       this.activity = activity
-       this.auth = Firebase.auth
+   constructor(){
+       //this.activity = activity
+       auth = Firebase.auth
+       //authLogOut = this.auth
        this.fStore = FirebaseFirestore.getInstance()
 
        StartLauncher()
    }
 
     private fun StartLauncher() {
-        launcher = (activity as AuthenticationActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        launcher = (activity as MainActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
-                account = task.getResult(ApiException::class.java)
+                //d("TAG", "account.idToken: ${account.email}")
 
+                account = task.getResult(ApiException::class.java)
                 if(account == null){
+
                     d("TAG", "NOT Registered")
                     firebaseRegWithGoogle(account.idToken!!)
                 }else{
-                    d("TAG", "Registered")
+                    d("TAG", "Registered $account")
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
             }catch (e: ApiException){
-                d("TAG", "ApiException: $e")
+                d("TAG", "ApiException1: $e")
             }
         }
     }
 
      fun CheckLauncher() {
-        launcher = (activity as AuthenticationActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        launcher = (activity as MainActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 account = task.getResult(ApiException::class.java)
@@ -96,6 +101,7 @@ class AppRepository {
                 }
                 //Taking the data from Firestore to class USER
                 for(dc : DocumentChange in value?.documentChanges!!){
+                    //d("TAG", "Create the user")
                     if(dc.type == DocumentChange.Type.ADDED){
                         Testlist.add(dc.document.toObject(User::class.java))
 
@@ -162,12 +168,12 @@ class AppRepository {
 
                 repository.GetTransactionFromFirestore()
 
-                var intent = Intent((activity as AuthenticationActivity), MainActivity::class.java)
+                var intent = Intent((activity as MainActivity), MainActivity::class.java)
                 startActivity(activity, intent, null)
 
                 activity.finish()
 
-                d("TAG", "Google sign in done")
+                d("TAG", "Google sign up done")
             }else{
                 d("TAG", "Google sign in error")
             }
@@ -239,6 +245,9 @@ class AppRepository {
 
         AddTitles(user)
 
+        Toast.makeText(activity, "CreateUserOnDB", Toast.LENGTH_LONG).show()
+        d("TAG", "CreateUserOnDB")
+
         documentReference.set(user).addOnSuccessListener {
 
             Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
@@ -284,7 +293,7 @@ class AppRepository {
         return GoogleSignIn.getClient(activity, gso)
     }
 
-    fun signInWithGoogle(activity: Activity){
+    fun signInWithGoogle(){
         d("TAG", "signInWithGoogle")
         val signInClient = getClient()
         launcher.launch(signInClient.signInIntent)

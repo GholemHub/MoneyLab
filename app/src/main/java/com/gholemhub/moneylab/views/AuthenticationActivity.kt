@@ -22,17 +22,14 @@ class AuthenticationActivity : AppCompatActivity() {
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //repository = AppRepository()
 
+        //repository.signInWithGoogle(this)
 
-        repository = AppRepository(this)
+       /* binding.GoogleSignInButton.setOnClickListener {
+            repository.signInWithGoogle()
 
-        repository.signInWithGoogle(this)
-
-
-        binding.GoogleSignInButton.setOnClickListener {
-            repository.signInWithGoogle(this)
-
-        }
+        }*/
 
 
     }

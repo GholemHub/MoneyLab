@@ -39,7 +39,6 @@ android {
         dataBinding true
     }
 
-    buildToolsVersion '30.0.2'
 
 }
 
@@ -59,6 +58,9 @@ dependencies {
     implementation 'androidx.databinding:databinding-runtime:4.2.2'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.0.1'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-firestore:24.0.1'
+    implementation 'com.google.firebase:firebase-database:20.0.3'
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "android.arch.lifecycle:extensions:1.1.1"
