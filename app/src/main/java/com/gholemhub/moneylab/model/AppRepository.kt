@@ -7,10 +7,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.Navigation
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.classes.User
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.databinding.FragmentPreAuthenticationBinding
 import com.gholemhub.moneylab.views.AuthenticationActivity
 import com.gholemhub.moneylab.views.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -32,6 +34,7 @@ class AppRepository {
         lateinit var userModel: User
         lateinit var authLogOut: FirebaseAuth
         lateinit var auth: FirebaseAuth
+        lateinit var bindingPreAuthentication: FragmentPreAuthenticationBinding
     }
 
 
@@ -41,10 +44,10 @@ class AppRepository {
     private var fStore: FirebaseFirestore
     private lateinit var userId: String
 
-    private var activity: Activity = MainActivity()
+    private var activity: Activity// = MainActivity()
 
-   constructor(){
-       //this.activity = activity
+   constructor(activity_: MainActivity){
+       this.activity = activity_
        auth = Firebase.auth
        //authLogOut = this.auth
        this.fStore = FirebaseFirestore.getInstance()
@@ -72,7 +75,7 @@ class AppRepository {
             }
         }
     }
-
+/*
      fun CheckLauncher() {
         launcher = (activity as MainActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
@@ -87,7 +90,7 @@ class AppRepository {
                 d("TAG", "ApiException: $e")
             }
         }
-    }
+    }*/
 
     var Testlist = mutableListOf<User>()
     //TODO optimizate lists
@@ -168,10 +171,13 @@ class AppRepository {
 
                 repository.GetTransactionFromFirestore()
 
-                var intent = Intent((activity as MainActivity), MainActivity::class.java)
-                startActivity(activity, intent, null)
+                Navigation.findNavController(bindingPreAuthentication.root)
+                    .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)
 
-                activity.finish()
+                /*var intent = Intent((activity as MainActivity), MainActivity::class.java)
+                startActivity(activity, intent, null)*/
+
+                //activity.finish()
 
                 d("TAG", "Google sign up done")
             }else{
@@ -191,10 +197,12 @@ class AppRepository {
                 //if Yes create the new user in FirestoreDB
                 //CreateUserOnDB()
                 repository.GetTransactionFromFirestore()
-                var intent = Intent(activity, MainActivity::class.java)
-                startActivity(activity, intent, null)
+                Navigation.findNavController(bindingPreAuthentication.root)
+                    .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)
+                /*var intent = Intent(activity, MainActivity::class.java)
+                startActivity(activity, intent, null)*/
 
-                activity.finish()
+                //activity.finish()
 
                 d("TAG", "Google sign in done")
             }else{

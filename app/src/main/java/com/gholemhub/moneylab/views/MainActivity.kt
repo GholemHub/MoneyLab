@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
         binding = ActivityMainBinding.inflate(layoutInflater)
         var view = binding.root
         setContentView(view)
-        repository = AppRepository()
+        repository = AppRepository(this)
 
         MenuListener()
     }
