@@ -34,18 +34,12 @@ class PreAuthenticationFragment : Fragment() {
                 Log.d("TAG", "Sign in")
                 repository.signInWithGoogle()
 
-                /*Navigation.findNavController(bindingPreAuthentication.root)
-                    .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)*/
-
-                /*Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_preAuthenticationFragment_to_fragmentTransaction2)*/
             } else {
                 Log.d("TAG", "Sign up")
                 repository.signInWithGoogle()
-                /*Navigation.findNavController(bindingPreAuthentication.root)
-                    .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)*/
+
             }
-        }, 1500)
+        }, 500)
         return bindingPreAuthentication.root
     }
 }

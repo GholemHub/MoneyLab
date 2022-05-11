@@ -3,6 +3,7 @@ package com.gholemhub.moneylab.model
 import android.app.Activity
 import android.content.Intent
 import android.util.Log.d
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +36,7 @@ class AppRepository {
         lateinit var authLogOut: FirebaseAuth
         lateinit var auth: FirebaseAuth
         lateinit var bindingPreAuthentication: FragmentPreAuthenticationBinding
+        lateinit var activityMain: MainActivity
     }
 
 
@@ -44,10 +46,11 @@ class AppRepository {
     private var fStore: FirebaseFirestore
     private lateinit var userId: String
 
-    private var activity: Activity// = MainActivity()
+    //private var activity: Activity// = MainActivity()
 
    constructor(activity_: MainActivity){
-       this.activity = activity_
+       activityMain = activity_
+
        auth = Firebase.auth
        //authLogOut = this.auth
        this.fStore = FirebaseFirestore.getInstance()
@@ -56,7 +59,7 @@ class AppRepository {
    }
 
     private fun StartLauncher() {
-        launcher = (activity as MainActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        launcher = (activityMain as MainActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 //d("TAG", "account.idToken: ${account.email}")
@@ -170,7 +173,7 @@ class AppRepository {
                 CreateUserOnDB()
 
                 repository.GetTransactionFromFirestore()
-
+                ShowNavigationBar()
                 Navigation.findNavController(bindingPreAuthentication.root)
                     .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)
 
@@ -197,6 +200,7 @@ class AppRepository {
                 //if Yes create the new user in FirestoreDB
                 //CreateUserOnDB()
                 repository.GetTransactionFromFirestore()
+                ShowNavigationBar()
                 Navigation.findNavController(bindingPreAuthentication.root)
                     .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)
                 /*var intent = Intent(activity, MainActivity::class.java)
@@ -215,12 +219,12 @@ class AppRepository {
         d("TAG", "chechAuthState")
         //if user is logged in than skip this active
         if(auth.currentUser != null){
-            var intent = Intent(activity, MainActivity::class.java)
+            var intent = Intent(activityMain, MainActivity::class.java)
             //TODO change !! to If statement
             //if(auth.currentUser!!.uid != null)
             userId = auth.currentUser!!.uid
             userModel = User(userId)
-            startActivity(activity, intent, null)
+            startActivity(activityMain, intent, null)
         }
     }
 
@@ -235,9 +239,9 @@ class AppRepository {
         userModel.ListOfTransactions.add(transaction)
 
         documentReference.set(userModel).addOnSuccessListener {
-            Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
+            Toast.makeText(activityMain, "Success", Toast.LENGTH_LONG).show()
         }.addOnFailureListener{
-            Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(activityMain, "Failed", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -253,15 +257,15 @@ class AppRepository {
 
         AddTitles(user)
 
-        Toast.makeText(activity, "CreateUserOnDB", Toast.LENGTH_LONG).show()
+        Toast.makeText(activityMain, "CreateUserOnDB", Toast.LENGTH_LONG).show()
         d("TAG", "CreateUserOnDB")
 
         documentReference.set(user).addOnSuccessListener {
 
-            Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
+            Toast.makeText(activityMain, "Success", Toast.LENGTH_LONG).show()
 
         }.addOnFailureListener{
-            Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(activityMain, "Failed", Toast.LENGTH_LONG).show()
         }
 
     }
@@ -294,11 +298,11 @@ class AppRepository {
         d("TAG", "getClient")
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(activity.getString(R.string.default_web_client_id))
+            .requestIdToken(activityMain.getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        return GoogleSignIn.getClient(activity, gso)
+        return GoogleSignIn.getClient(activityMain, gso)
     }
 
     fun signInWithGoogle(){
@@ -310,5 +314,11 @@ class AppRepository {
     fun signOuthFromGoogle(activity: Activity){
         auth.signOut()
         activity.finish()
+    }
+    fun ShowNavigationBar(){
+        activityMain.binding.fab?.visibility = View.VISIBLE
+        activityMain.binding.bottomAppBar?.visibility = View.VISIBLE
+        activityMain.binding.bnv?.visibility = View.VISIBLE
+        //activityMain.binding.coordinator1?.setBackgroundColor(Color.WHITE)
     }
 }

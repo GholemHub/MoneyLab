@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:fabCradleMargin="6dp"
-            app:fabCradleRoundedCornerRadius="20dp">
+            app:fabCradleRoundedCornerRadius="20dp"
+        android:visibility="gone">
 
       <com.google.android.material.bottomnavigation.BottomNavigationView
               android:layout_width="match_parent"
@@ -38,6 +39,7 @@
               android:layout_marginEnd="16dp"
               android:background="@android:color/transparent"
               app:menu="@menu/bottom_navigation_bar"
+          android:visibility="gone"
       />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -50,7 +52,7 @@
         android:src="@drawable/ic_baseline_add_24"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
-
+        android:visibility="gone"
         app:tint="@color/white" />
 
 
