@@ -39,15 +39,9 @@
               android:label="fragment_add" tools:layout="@layout/fragment_transaction"/>
     <fragment android:id="@+id/fragmentHistory" android:name="com.gholemhub.moneylab.views.FragmentHistory"
               android:label="fragment_history" tools:layout="@layout/fragment_history"/>
-    <activity android:id="@+id/mainActivity" android:name="com.gholemhub.moneylab.views.MainActivity"
-              android:label="activity_main" tools:layout="@layout/activity_main"/>
     <fragment android:id="@+id/fragmentChart" android:name="com.gholemhub.moneylab.views.FragmentChart"
               android:label="fragment_chart" tools:layout="@layout/fragment_chart"/>
     <fragment android:id="@+id/fragmentPlaning" android:name="com.gholemhub.moneylab.views.FragmentPlaning"
               android:label="fragment_planing" tools:layout="@layout/fragment_planing"/>
-    <activity
-        android:id="@+id/authenticationActivity"
-        android:name="com.gholemhub.moneylab.views.AuthenticationActivity"
-        android:label="activity_authentication"
-        tools:layout="@layout/activity_authentication" />
+
 </navigation>

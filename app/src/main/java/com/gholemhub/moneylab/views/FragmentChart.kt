@@ -84,9 +84,5 @@ class FragmentChart : Fragment() {
         //(recyclerView.adapter as AdapterTransaction).notifyDataSetChanged()
         adapter1.notifyDataSetChanged()
 
-
-
-
-
     }
 }
