@@ -202,11 +202,8 @@ class AppRepository {
                 repository.GetTransactionFromFirestore()
                 ShowNavigationBar()
                 Navigation.findNavController(bindingPreAuthentication.root)
-                    .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)
-                /*var intent = Intent(activity, MainActivity::class.java)
-                startActivity(activity, intent, null)*/
+                    .navigate(R.id.action_preAuthenticationFragment_to_fragmentChart)
 
-                //activity.finish()
 
                 d("TAG", "Google sign in done")
             }else{

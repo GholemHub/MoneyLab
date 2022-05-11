@@ -45,28 +45,25 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
 
         MenuListener()
     }
-
-        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+/// TODO Set to TOPBARNAVIGATION
+      /*  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //binding.
            //menuInflater.inflate(binding.top_navigation_bar)
         menuInflater.inflate(R.menu.top_navigation_bar, menu)
             return true
-        }
+        }*/
 
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
 
             var navHostFragment = supportFragmentManager.findFragmentById(R.id.Fragment)
             var navController = navHostFragment?.findNavController()
             d("TAG", "NAVSETS")
 
-            var intent = Intent(this, AuthenticationActivity::class.java)
-            AppRepository.authLogOut.signOut()
 
-            ContextCompat.startActivity(this, intent, null)
 
             return item.onNavDestinationSelected(navController!!) || super.onOptionsItemSelected(item)
-        }
+        }*/
 
     private fun ReplaseFragment(fragment: Fragment) {
         var fragmentManager = supportFragmentManager
@@ -83,8 +80,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
 
         var navigationController = findNavController(R.id.Fragment)
         binding.bnv?.setupWithNavController(navigationController)
-
-
 
         binding.fab?.setOnClickListener {
             startActivity(Intent(this@MainActivity, AddActivity::class.java))

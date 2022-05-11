@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_preAuthenticationFragment_to_fragmentTransaction2"
             app:destination="@id/fragmentTransaction2" />
+        <action
+            android:id="@+id/action_preAuthenticationFragment_to_fragmentChart"
+            app:destination="@id/fragmentChart" />
     </fragment>
     <action
         android:id="@+id/action_preAuthenticationFragment_to_authenticationFragment"
