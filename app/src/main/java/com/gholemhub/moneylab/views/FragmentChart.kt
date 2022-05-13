@@ -16,19 +16,20 @@ import com.gholemhub.moneylab.classes.ItemSelectionDecoration
 import com.gholemhub.moneylab.databinding.FragmentChartBinding
 import com.gholemhub.moneylab.databinding.FragmentTransactionBinding
 import com.gholemhub.moneylab.model.AppRepository
+import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentChart
 
 class FragmentChart : Fragment() {
 
     lateinit var adapter1: AdapterTransaction
 
-    lateinit var binding: FragmentChartBinding
+    //lateinit var bindingFragmentChart: FragmentChartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<FragmentChartBinding>(inflater,
+        bindingFragmentChart = DataBindingUtil.inflate<FragmentChartBinding>(inflater,
             R.layout.fragment_chart, container, false)
 
 
@@ -50,12 +51,12 @@ class FragmentChart : Fragment() {
         CalculateMoney()
 
 
-        return binding.root
+        return bindingFragmentChart.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        AdapterSetup(binding)
+        AdapterSetup(bindingFragmentChart)
     }
 
     private fun CalculateMoney() {

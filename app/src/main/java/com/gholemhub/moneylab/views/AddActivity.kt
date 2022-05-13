@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.adapters.AdapterAddDialog
@@ -21,6 +22,8 @@ import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.model.AppRepository
+import com.gholemhub.moneylab.model.AppRepository.Companion.bindingPreAuthentication
 import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 
 import com.gholemhub.moneylab.views.FragmentTransaction
@@ -229,9 +232,13 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     }
 
     private fun ChangeActivity() {
-        var intent = Intent(this, MainActivity::class.java)
 
-        ContextCompat.startActivity(this, intent, null)
+        /*Navigation.findNavController(bindingPreAuthentication.root)
+            .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)*/
+
+        /*var intent = Intent(this, MainActivity::class.java)
+
+        ContextCompat.startActivity(this, intent, null)*/
     }
 
     private fun CreateDate(): String {

@@ -13,6 +13,7 @@ import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.classes.User
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.databinding.FragmentChartBinding
 import com.gholemhub.moneylab.databinding.FragmentPreAuthenticationBinding
 import com.gholemhub.moneylab.views.AuthenticationActivity
 import com.gholemhub.moneylab.views.MainActivity
@@ -37,6 +38,7 @@ class AppRepository {
         lateinit var auth: FirebaseAuth
         lateinit var bindingPreAuthentication: FragmentPreAuthenticationBinding
         lateinit var activityMain: MainActivity
+        lateinit var bindingFragmentChart: FragmentChartBinding
     }
 
 
@@ -174,6 +176,7 @@ class AppRepository {
 
                 repository.GetTransactionFromFirestore()
                 ShowNavigationBar()
+
                 Navigation.findNavController(bindingPreAuthentication.root)
                     .navigate(R.id.action_preAuthenticationFragment_to_authenticationFragment)
 

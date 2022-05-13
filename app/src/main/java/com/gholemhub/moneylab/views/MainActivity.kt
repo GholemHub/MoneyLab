@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -82,9 +83,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
         binding.bnv?.setupWithNavController(navigationController)
 
         binding.fab?.setOnClickListener {
-            startActivity(Intent(this@MainActivity, AddActivity::class.java))
+
+            //Navigation.findNavController(AppRepository.bindingFragmentChart.root)
+            //    .navigate(R.id.action_fragmentChart_to_addFragment)
+
+            //startActivity(Intent(this@MainActivity, AddActivity::class.java))
         }
-
-
     }
 }
