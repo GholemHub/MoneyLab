@@ -7,11 +7,12 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 
 
-import com.gholemhub.moneylab.AddActivity.Companion.binding
-import com.gholemhub.moneylab.AddActivity.Companion.dialog
+
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 import com.gholemhub.moneylab.classes.TitleIE
+import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentAdd
+import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentCategory
 import java.lang.ClassCastException
 
 class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -49,8 +50,8 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             (holder as viewHolderOne).bindItemsOne(userModel.ListOfTitles[position])
             holder.table.setOnClickListener {
                 listener.applyTipe(userModel.ListOfTitles[position])
-                binding.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
-                dialog.dismiss()
+                bindingFragmentAdd.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
+                //dialog.dismiss()
             }
         }
         else if(userModel.ListOfTitles[position].id == 1) {
@@ -58,8 +59,8 @@ class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.table.setOnClickListener {
 
                 listener.applyTipe(userModel.ListOfTitles[position])
-                binding.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
-                dialog.dismiss()
+                bindingFragmentAdd.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
+                //dialog.dismiss()
 
             }
         }

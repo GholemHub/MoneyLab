@@ -1,33 +1,21 @@
 package com.gholemhub.moneylab.views
 
-import android.content.ClipData
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log.d
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.gholemhub.moneylab.AddActivity
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.classes.User
 import com.gholemhub.moneylab.databinding.ActivityMainBinding
 import com.gholemhub.moneylab.model.AppRepository
+import com.gholemhub.moneylab.model.AppRepository.Companion.activityMain
 import com.gholemhub.moneylab.model.AppRepository.Companion.repository
-import com.gholemhub.moneylab.viewmodels.MainActivityViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.material.internal.ContextUtils.getActivity
 
 
 class MainActivity : AppCompatActivity(), LifecycleOwner{
@@ -46,7 +34,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
 
         MenuListener()
     }
-/// TODO Set to TOPBARNAVIGATION
+/// TODO Set to TOP BAR NAVIGATION
       /*  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //binding.
            //menuInflater.inflate(binding.top_navigation_bar)
@@ -84,10 +72,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner{
 
         binding.fab?.setOnClickListener {
 
+            d("TAG", "NAV " + navigationController.currentBackStackEntry)
+
+
             //Navigation.findNavController(AppRepository.bindingFragmentChart.root)
             //    .navigate(R.id.action_fragmentChart_to_addFragment)
 
-            //startActivity(Intent(this@MainActivity, AddActivity::class.java))
+            startActivity(Intent(this@MainActivity, AddActivity::class.java))
         }
     }
 }

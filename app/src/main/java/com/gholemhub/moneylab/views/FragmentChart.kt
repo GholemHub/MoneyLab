@@ -76,7 +76,7 @@ class FragmentChart : Fragment() {
         var recyclerView: RecyclerView = binding.recyclerViewTransaction
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter1 = AdapterTransaction()
-        var itemSelectionDecoration = ItemSelectionDecoration()
+        //var itemSelectionDecoration = ItemSelectionDecoration()
         //recyclerView.addItemDecoration(itemSelectionDecoration)
         //adapter1.notifyDataSetChanged()
         recyclerView.adapter = adapter1

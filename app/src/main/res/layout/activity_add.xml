@@ -8,6 +8,22 @@
     android:layout_height="match_parent"
     tools:context=".views.MainActivity"
     >
+
+
+    <fragment
+        android:id="@+id/fragment_ActivityAdd"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/add_navigation" />
+<!--
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -310,5 +326,7 @@
             </RelativeLayout>
         </TableRow>
     </TableLayout>
+
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

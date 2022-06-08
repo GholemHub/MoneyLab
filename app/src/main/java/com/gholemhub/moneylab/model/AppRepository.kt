@@ -13,8 +13,7 @@ import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.classes.User
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
-import com.gholemhub.moneylab.databinding.FragmentChartBinding
-import com.gholemhub.moneylab.databinding.FragmentPreAuthenticationBinding
+import com.gholemhub.moneylab.databinding.*
 import com.gholemhub.moneylab.views.AuthenticationActivity
 import com.gholemhub.moneylab.views.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -39,6 +38,10 @@ class AppRepository {
         lateinit var bindingPreAuthentication: FragmentPreAuthenticationBinding
         lateinit var activityMain: MainActivity
         lateinit var bindingFragmentChart: FragmentChartBinding
+        lateinit var bindingFragmentCategory: FragmentCategoryBinding
+        lateinit var bindingFragmentAdd: FragmentAddBinding
+        lateinit var activityAddBinding: ActivityAddBinding
+
     }
 
 
@@ -60,6 +63,8 @@ class AppRepository {
        StartLauncher()
    }
 
+
+
     private fun StartLauncher() {
         launcher = (activityMain as MainActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
@@ -67,9 +72,12 @@ class AppRepository {
                 //d("TAG", "account.idToken: ${account.email}")
 
                 account = task.getResult(ApiException::class.java)
+
+
                 if(account == null){
 
                     d("TAG", "NOT Registered")
+                    account = task.getResult(ApiException::class.java)
                     firebaseRegWithGoogle(account.idToken!!)
                 }else{
                     d("TAG", "Registered $account")
@@ -172,7 +180,7 @@ class AppRepository {
                 userModel = User(userId)
 
                 //if Yes create the new user in FirestoreDB
-                CreateUserOnDB()
+                //CreateUserOnDB()
 
                 repository.GetTransactionFromFirestore()
                 ShowNavigationBar()

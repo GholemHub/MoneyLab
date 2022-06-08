@@ -23,6 +23,7 @@ import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
 import com.gholemhub.moneylab.model.AppRepository
+import com.gholemhub.moneylab.model.AppRepository.Companion.activityAddBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingPreAuthentication
 import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 
@@ -39,16 +40,6 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     private var idOfTipe: Int = 0
     private lateinit var titleIE: TitleIE
 
-    companion object {
-        @JvmStatic
-
-        lateinit var dialog: Dialog
-        //var TitleType = mutableListOf<TitleIE>()
-
-        lateinit var binding: ActivityAddBinding
-    }
-
-    private lateinit var bindingDialig: DialogTytleBinding
 
     lateinit var adapter1: AdapterAddDialog
 
@@ -57,20 +48,20 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityAddBinding.inflate(layoutInflater)
-        var view = binding.root
-        setContentView(view)
+        activityAddBinding = ActivityAddBinding.inflate(layoutInflater)
 
-        d("TAG", "ID: " + userModel.idTocken)
+        setContentView(activityAddBinding.root)
+
+  //      d("TAG", "ID: " + userModel.idTocken)
 
         //Disable keyboard on editText
-        binding.inputText.showSoftInputOnFocus = false
+//        binding.inputText.showSoftInputOnFocus = false
 
 
-        CreateDialog()
+       //CreateDialog()
 
     }
-
+/*
     override fun applyTipe(item: TitleIE) {
         d("TAG", "id: " + item.id)
         idOfTipe = item.id
@@ -97,6 +88,7 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         }
 
     }
+
 
     private var boolEquel = false
 
@@ -264,5 +256,5 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
             binding.inputText.setText(selection)
             binding.inputText.setSelection(cursorPos - 1)
         }
-    }
+    }*/
 }
