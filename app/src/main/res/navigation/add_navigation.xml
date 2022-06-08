@@ -22,5 +22,13 @@
         <action
             android:id="@+id/action_categoryFragment_to_addFragment2"
             app:destination="@id/addFragment2" />
+        <action
+            android:id="@+id/action_categoryFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/createCategoryFragment"
+        android:name="com.gholemhub.moneylab.views.CreateCategoryFragment"
+        android:label="fragment_create_category"
+        tools:layout="@layout/fragment_create_category" />
 </navigation>
