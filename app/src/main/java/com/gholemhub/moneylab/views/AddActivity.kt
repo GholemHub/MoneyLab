@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gholemhub.moneylab.adapters.AdapterAddDialog
+import com.gholemhub.moneylab.adapters.AdapterAdd
 import com.gholemhub.moneylab.databinding.ActivityAddBinding
 import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
@@ -34,14 +34,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
+class AddActivity : AppCompatActivity(), AdapterAdd.DialogAddListener {
 
 
     private var idOfTipe: Int = 0
     private lateinit var titleIE: TitleIE
 
 
-    lateinit var adapter1: AdapterAddDialog
+    lateinit var adapter1: AdapterAdd
 
 
 
@@ -57,7 +57,17 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
         //Disable keyboard on editText
 //        binding.inputText.showSoftInputOnFocus = false
 
+/*
+  var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
+            tytleIncome.layoutManager = LinearLayoutManager(this)
+            adapter1 = AdapterAddDialog()
+            tytleIncome.adapter = adapter1
 
+            adapter1.notifyDataSetChanged()
+            Log.d("TAG", "ID: " + userModel.idTocken)
+            repository.GetTitlesFromFirestore()
+            dialog.show()
+* */
        //CreateDialog()
 
     }
@@ -78,7 +88,7 @@ class AddActivity : AppCompatActivity(), AdapterAddDialog.DialogAddListener {
 
             var tytleIncome: RecyclerView = bindingDialig.recyclerViewIncome
             tytleIncome.layoutManager = LinearLayoutManager(this)
-            adapter1 = AdapterAddDialog()
+            adapter1 = AdapterAdd()
             tytleIncome.adapter = adapter1
 
             adapter1.notifyDataSetChanged()

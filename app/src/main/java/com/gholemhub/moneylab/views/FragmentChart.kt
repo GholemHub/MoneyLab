@@ -37,7 +37,8 @@ class FragmentChart : Fragment() {
 
         //SystemClock.sleep(7000);
 
-        AppRepository.userModel.ListOfTitles.sortBy { t -> t.id}
+
+        AppRepository?.userModel?.ListOfTitles?.sortBy { t -> t.id}
 
 
         if(AppRepository.userModel == null) {

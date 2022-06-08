@@ -1,6 +1,5 @@
 package com.gholemhub.moneylab.views
 
-import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,13 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.adapters.AdapterAddDialog
-import com.gholemhub.moneylab.classes.TitleIE
-import com.gholemhub.moneylab.databinding.ActivityAddBinding
-import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.databinding.FragmentAddBinding
-import com.gholemhub.moneylab.databinding.FragmentChartBinding
-import com.gholemhub.moneylab.model.AppRepository
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentAdd
 
 class AddFragment : Fragment() {

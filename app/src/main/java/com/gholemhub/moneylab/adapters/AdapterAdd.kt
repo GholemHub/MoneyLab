@@ -15,7 +15,7 @@ import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentAdd
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentCategory
 import java.lang.ClassCastException
 
-class AdapterAddDialog: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var listener: DialogAddListener
 
