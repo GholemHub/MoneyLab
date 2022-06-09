@@ -1,18 +1,20 @@
 package com.gholemhub.moneylab.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.databinding.FragmentCategoryBinding
-import com.gholemhub.moneylab.databinding.FragmentChartBinding
-import com.gholemhub.moneylab.model.AppRepository
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentCategory
+
 
 class CategoryFragment : Fragment() {
 
@@ -24,8 +26,15 @@ class CategoryFragment : Fragment() {
         bindingFragmentCategory = DataBindingUtil.inflate<FragmentCategoryBinding>(inflater,
             R.layout.fragment_category, container, false)
 
+        CreateRecyclerView()
 
-
+// Override backBTN
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_categoryFragment_to_addFragment2)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
 
         bindingFragmentCategory.fabCategory.setOnClickListener {
@@ -34,6 +43,10 @@ class CategoryFragment : Fragment() {
         }
 
         return bindingFragmentCategory.root
+    }
+
+    private fun CreateRecyclerView() {
+
     }
 
 

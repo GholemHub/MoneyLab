@@ -33,11 +33,16 @@ private var firstTime: Boolean = true
             R.layout.fragment_create_category, container, false)
 
         IncomeExcomeListeners()
+        ImageListener()
             CreateListener()
 
 
 
         return bindingFragmentCreateCategory.root
+    }
+
+    private fun ImageListener() {
+
     }
 
     private fun CreateListener() {
