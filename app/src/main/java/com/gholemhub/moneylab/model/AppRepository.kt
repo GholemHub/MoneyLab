@@ -42,6 +42,7 @@ class AppRepository {
         lateinit var bindingFragmentAdd: FragmentAddBinding
         lateinit var bindingFragmentCreateCategory: FragmentCreateCategoryBinding
         lateinit var activityAddBinding: ActivityAddBinding
+        lateinit var bindingImageCategory: FragmentImageCategoryBinding
 
     }
 

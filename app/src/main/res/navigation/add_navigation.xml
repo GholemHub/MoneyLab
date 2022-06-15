@@ -34,5 +34,17 @@
         <action
             android:id="@+id/action_createCategoryFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_createCategoryFragment_to_imageCategoryFragment"
+            app:destination="@id/imageCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageCategoryFragment"
+        android:name="com.gholemhub.moneylab.views.ImageCategoryFragment"
+        android:label="fragment_image_category"
+        tools:layout="@layout/fragment_image_category" >
+        <action
+            android:id="@+id/action_imageCategoryFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment" />
     </fragment>
 </navigation>

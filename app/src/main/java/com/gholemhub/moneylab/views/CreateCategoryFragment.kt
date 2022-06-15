@@ -42,7 +42,10 @@ private var firstTime: Boolean = true
     }
 
     private fun ImageListener() {
-
+        bindingFragmentCreateCategory.tytleImage.setOnClickListener{
+            Navigation.findNavController(bindingFragmentCreateCategory.root)
+                .navigate(R.id.action_createCategoryFragment_to_imageCategoryFragment)
+        }
     }
 
     private fun CreateListener() {
