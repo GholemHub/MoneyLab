@@ -22,6 +22,7 @@ import com.gholemhub.moneylab.databinding.DialogTytleBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
+import com.gholemhub.moneylab.model.AddRepository.Companion.AddContext
 import com.gholemhub.moneylab.model.AppRepository
 import com.gholemhub.moneylab.model.AppRepository.Companion.activityAddBinding
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingPreAuthentication
@@ -51,6 +52,7 @@ class AddActivity : AppCompatActivity(), AdapterAdd.DialogAddListener {
         activityAddBinding = ActivityAddBinding.inflate(layoutInflater)
 
         setContentView(activityAddBinding.root)
+        AddContext = this
 
   //      d("TAG", "ID: " + userModel.idTocken)
 
