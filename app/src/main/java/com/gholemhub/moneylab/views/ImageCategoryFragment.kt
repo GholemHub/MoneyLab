@@ -29,7 +29,7 @@ class ImageCategoryFragment : Fragment() {
         bindingImageCategory = DataBindingUtil.inflate<FragmentImageCategoryBinding>(inflater,
             R.layout.fragment_image_category, container, false)
 
-        AddRepository().CreateImagesCategoryList()
+        //AddRepository().CreateImagesCategoryList()
 
         //val recycler = findViewById<RecyclerView>(R.id.recycler)
         var adapter = AdapterImageCategory()
