@@ -9,18 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.adapters.AdapterAdd
-import com.gholemhub.moneylab.databinding.FragmentAddBinding
+import com.gholemhub.moneylab.classes.Category
 import com.gholemhub.moneylab.databinding.FragmentCreateCategoryBinding
-import com.gholemhub.moneylab.model.AddRepository.Companion.AddContext
-import com.gholemhub.moneylab.model.AddRepository.Companion.transactionAddRep
+import com.gholemhub.moneylab.model.AddRepository.Companion.addNewCategory
 import com.gholemhub.moneylab.model.AppRepository
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentCreateCategory
+import com.gholemhub.moneylab.model.AppRepository.Companion.repository
 
 class CreateCategoryFragment : Fragment() {
 
@@ -42,13 +39,14 @@ private var choise: Boolean = true
     }
 
     private fun ImageListener() {
-        if(transactionAddRep.image != null && transactionAddRep.image != 0) {
 
-            d("TAG", "First: ${transactionAddRep.image}")
+        if(addNewCategory.image != null && addNewCategory.image != 0) {
 
-            bindingFragmentCreateCategory.tytleImage.setImageResource(transactionAddRep.image)
+            d("TAG", "First: ${addNewCategory.image}")
+
+            bindingFragmentCreateCategory.tytleImage.setImageResource(addNewCategory.image)
         }else{
-            d("TAG", " second: ${transactionAddRep.image}")
+            d("TAG", " second: ${addNewCategory.image}")
             bindingFragmentCreateCategory.tytleImage.setImageResource(R.drawable.outline_add_photo_alternate_24)
         }
         bindingFragmentCreateCategory.tytleImage.setOnClickListener{
@@ -60,9 +58,14 @@ private var choise: Boolean = true
     private fun CreateListener() {
         bindingFragmentCreateCategory.Create.setOnClickListener {
 
-            transactionAddRep.id = 1
-            if(bindingFragmentCreateCategory.inputText != null && bindingFragmentCreateCategory.inputText.toString().isEmpty()){
-                transactionAddRep.title = bindingFragmentCreateCategory.inputText.toString()
+            //addNewCategory.type = 1
+            if(bindingFragmentCreateCategory.inputText != null &&
+                !bindingFragmentCreateCategory.inputText.toString().isEmpty()
+            ){
+                addNewCategory.title = bindingFragmentCreateCategory.inputText.toString()
+                SetType()
+
+                PushCategory(addNewCategory)
             }
 
 
@@ -70,6 +73,20 @@ private var choise: Boolean = true
             Navigation.findNavController(bindingFragmentCreateCategory.root)
                 .navigate(R.id.action_createCategoryFragment_to_categoryFragment)
         }
+    }
+
+    private fun PushCategory(cat: Category) {
+        repository.CreateUserOnDB()
+        repository.AddCategory(cat)
+    }
+
+    private fun SetType() {
+        if(choise){
+            addNewCategory.type = 1
+        }else{
+            addNewCategory.type = 3
+        }
+
     }
 
     private fun IncomeExcomeListeners() {

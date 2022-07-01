@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 import com.gholemhub.moneylab.R
+import com.gholemhub.moneylab.classes.Category
 import com.gholemhub.moneylab.model.AppRepository.Companion.userModel
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.model.AppRepository.Companion.bindingFragmentAdd
@@ -20,9 +21,9 @@ class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var listener: DialogAddListener
 
     override fun getItemViewType(position: Int): Int {
-    return if(userModel.ListOfTitles[position].id == 3) 0
-    else if(userModel.ListOfTitles[position].id == 1) 1
-    else if(userModel.ListOfTitles[position].id == 2) 2
+    return if(userModel.ListOfCategoryes[position].type == 3) 0
+    else if(userModel.ListOfCategoryes[position].type == 1) 1
+    else if(userModel.ListOfCategoryes[position].type == 2) 2
         else 3
 
     }
@@ -46,27 +47,27 @@ class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        if(userModel.ListOfTitles[position].id == 3) {
-            (holder as viewHolderOne).bindItemsOne(userModel.ListOfTitles[position])
+        if(userModel.ListOfCategoryes[position].type == 3) {
+            (holder as viewHolderOne).bindItemsOne(userModel.ListOfCategoryes[position])
             holder.table.setOnClickListener {
-                listener.applyTipe(userModel.ListOfTitles[position])
-                bindingFragmentAdd.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
+                listener.applyTipe(userModel.ListOfCategoryes[position])
+                bindingFragmentAdd.tytleImage.setImageResource(userModel.ListOfCategoryes[position].image)
                 //dialog.dismiss()
             }
         }
-        else if(userModel.ListOfTitles[position].id == 1) {
-            (holder as viewHolderTwo).bindItemsOne(userModel.ListOfTitles[position])
+        else if(userModel.ListOfCategoryes[position].type == 1) {
+            (holder as viewHolderTwo).bindItemsOne(userModel.ListOfCategoryes[position])
             holder.table.setOnClickListener {
 
-                listener.applyTipe(userModel.ListOfTitles[position])
-                bindingFragmentAdd.tytleImage.setImageResource(userModel.ListOfTitles[position].image)
+                listener.applyTipe(userModel.ListOfCategoryes[position])
+                bindingFragmentAdd.tytleImage.setImageResource(userModel.ListOfCategoryes[position].image)
                 //dialog.dismiss()
 
             }
         }
-        else if(userModel.ListOfTitles[position].id == 2) {
+        else if(userModel.ListOfCategoryes[position].type == 2) {
                 //d("TAG", "HER")
-                (holder as viewHolderZero).bindItemsOne(userModel.ListOfTitles[position])
+                (holder as viewHolderZero).bindItemsOne(userModel.ListOfCategoryes[position])
         }
     }
 
@@ -81,7 +82,7 @@ class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return userModel.ListOfTitles.size
+        return userModel.ListOfCategoryes.size
     }
 
     inner class viewHolderOne(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -89,7 +90,7 @@ class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var table = itemView.findViewById<TableRow>(R.id.tytle_expense_table_item)
         var title = itemView.findViewById<TextView>(R.id.tytle_expense_text_item)
 
-        fun bindItemsOne(item : TitleIE){
+        fun bindItemsOne(item : Category){
             title.text = item.title
             image.setImageResource(item.image)
         }
@@ -100,7 +101,7 @@ class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var title = itemView.findViewById<TextView>(R.id.tytle_income_text_item)
 
 
-        fun bindItemsOne(item : TitleIE){
+        fun bindItemsOne(item : Category){
             title.text = item.title
             image.setImageResource(item.image)
         }
@@ -109,14 +110,14 @@ class AdapterAdd: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class viewHolderZero(itemView: View): RecyclerView.ViewHolder(itemView){
 
 
-        fun bindItemsOne(item : TitleIE){
+        fun bindItemsOne(item : Category){
 
         }
     }
 
 
     interface DialogAddListener{
-        fun applyTipe(id: TitleIE){}
+        fun applyTipe(id: Category){}
     }
 
 }

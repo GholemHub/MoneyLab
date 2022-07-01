@@ -1,28 +1,23 @@
 package com.gholemhub.moneylab.model
 
-import android.util.Log
-import android.widget.Toast
 import com.gholemhub.moneylab.AddActivity
 import com.gholemhub.moneylab.R
 import com.gholemhub.moneylab.classes.Category
+import com.gholemhub.moneylab.classes.CategoryImage
 import com.gholemhub.moneylab.classes.TransactionVM
-import com.gholemhub.moneylab.classes.User
-import com.gholemhub.moneylab.databinding.*
-import com.gholemhub.moneylab.views.MainActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AddRepository {
     companion object {
         @JvmStatic
         lateinit var AddContext: AddActivity
-        var transactionAddRep: TransactionVM = TransactionVM()
-        val ImagesCategoryList: MutableList<Category> =
-            mutableListOf(Category(1, R.drawable.outline_shopping_cart_24),
-                Category(2, R.drawable.outline_cottage_24),
-                Category(3, R.drawable.outline_phone_iphone_24),
-                Category(4, R.drawable.outline_medical_services_24))
+        var addNewCategory: Category = Category()
+        val ImagesCategoryList: MutableList<CategoryImage> =
+            mutableListOf(
+                CategoryImage(1, R.drawable.outline_shopping_cart_24),
+                CategoryImage(2, R.drawable.outline_cottage_24),
+                CategoryImage(3, R.drawable.outline_phone_iphone_24),
+                CategoryImage(4, R.drawable.outline_medical_services_24))
 
     }
 

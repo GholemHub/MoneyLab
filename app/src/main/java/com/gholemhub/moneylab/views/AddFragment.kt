@@ -24,6 +24,8 @@ class AddFragment : Fragment() {
             R.layout.fragment_add, container, false)
 
         bindingFragmentAdd.tytleImage.setOnClickListener {
+
+
             Navigation.findNavController(bindingFragmentAdd.root)
                 .navigate(R.id.action_addFragment2_to_categoryFragment)
         }

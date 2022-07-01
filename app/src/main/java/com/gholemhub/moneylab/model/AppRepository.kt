@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.Navigation
 import com.gholemhub.moneylab.R
+import com.gholemhub.moneylab.classes.Category
 import com.gholemhub.moneylab.classes.User
 import com.gholemhub.moneylab.classes.TitleIE
 import com.gholemhub.moneylab.classes.TransactionVM
@@ -128,11 +129,47 @@ class AppRepository {
 
                 //Replase Users titles
                 for(i in Testlist){
-                    userModel.ListOfTitles.clear()
-                    userModel.ListOfTitles = i.ListOfTitles
+                    userModel.ListOfCategoryes.clear()
+                    userModel.ListOfCategoryes = i.ListOfCategoryes
                     d("TAG", "Title tocken1: " + i.idTocken)
                 }
             }
+        })
+    }
+
+    fun GetListOfCategoryFromFirestore(){
+        fStore.collection("Users").addSnapshotListener(object : EventListener<QuerySnapshot>{
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                var Userslist = mutableListOf<User>()
+
+                if(error != null){
+                    d("TAG", "Error: " + error.message.toString())
+                    return
+                }
+
+
+                //Taking the data from Firestore to class USER
+                for(dc : DocumentChange in value?.documentChanges!!){
+                    if(dc.type == DocumentChange.Type.ADDED){
+                        Userslist.add(dc.document.toObject(User::class.java))
+                    }
+                    // d("TAG", "TEST LOG: ${dc.type.name}")
+
+                }
+
+                //Replase Users transactions
+                for(i in Userslist){
+                    //userModel.ListOfTransactions.clear()
+                    if(userModel.idTocken == i.idTocken){
+                        userModel.ListOfCategoryes = i.ListOfCategoryes
+                        d("TAG", "XXXXXXXXX ${i.ListOfCategoryes}")
+
+                        d("TAG", "Transaction tocken: " + i.Money)
+                    }
+                }
+                Userslist.clear()
+            }
+
         })
     }
 
@@ -182,7 +219,7 @@ class AppRepository {
                 userModel = User(userId)
 
                 //if Yes create the new user in FirestoreDB
-                //CreateUserOnDB()
+                CreateUserOnDB()
 
                 repository.GetTransactionFromFirestore()
                 ShowNavigationBar()
@@ -211,7 +248,7 @@ class AppRepository {
                 userModel = User(userId)
 
                 //if Yes create the new user in FirestoreDB
-                //CreateUserOnDB()
+                CreateUserOnDB()
                 repository.GetTransactionFromFirestore()
                 ShowNavigationBar()
                 Navigation.findNavController(bindingPreAuthentication.root)
@@ -255,9 +292,21 @@ class AppRepository {
         }
     }
 
+    fun AddCategory(category: Category){
 
+        var documentReference: DocumentReference = fStore.collection("Users").document(userId)
+        val user = User(account.idToken.toString())
 
-    private fun CreateUserOnDB() {
+        user.ListOfCategoryes.add(category)
+
+        documentReference.set(user).addOnSuccessListener {
+            //    Toast.makeText(activityMain, "Success", Toast.LENGTH_LONG).show()
+        }.addOnFailureListener{
+            //    Toast.makeText(activityMain, "Failed", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun CreateUserOnDB() {
 
         //Creating users data in FirebaseDB to folder /Users/userId
         var documentReference: DocumentReference = fStore.collection("Users").document(userId)
@@ -265,22 +314,17 @@ class AppRepository {
         //Putting the data to file
         val user = User(account.idToken.toString())
 
-        AddTitles(user)
-
-        Toast.makeText(activityMain, "CreateUserOnDB", Toast.LENGTH_LONG).show()
+       // Toast.makeText(activityMain, "CreateUserOnDB", Toast.LENGTH_LONG).show()
         d("TAG", "CreateUserOnDB")
 
         documentReference.set(user).addOnSuccessListener {
-
-            Toast.makeText(activityMain, "Success", Toast.LENGTH_LONG).show()
-
+        //    Toast.makeText(activityMain, "Success", Toast.LENGTH_LONG).show()
         }.addOnFailureListener{
-            Toast.makeText(activityMain, "Failed", Toast.LENGTH_LONG).show()
+        //    Toast.makeText(activityMain, "Failed", Toast.LENGTH_LONG).show()
         }
-
     }
 
-    private fun AddTitles(user: User) {
+   /* private fun AddTitles(user: User) {
 
         user.ListOfTitles.add(TitleIE(R.drawable.outline_ramen_dining_24, "Food",  1))
         user.ListOfTitles.add(TitleIE(R.drawable.outline_directions_bus_24, "Transport",  1))
@@ -302,7 +346,7 @@ class AppRepository {
 
         user.ListOfTitles.sortBy { t -> t.id}
 
-    }
+    }*/
 
     private fun getClient(): GoogleSignInClient {
         d("TAG", "getClient")

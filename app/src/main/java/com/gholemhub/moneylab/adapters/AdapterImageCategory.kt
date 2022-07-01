@@ -1,23 +1,16 @@
 package com.gholemhub.moneylab.adapters
 
-import android.content.Context
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.gholemhub.moneylab.R
-import com.gholemhub.moneylab.classes.Category
-import com.gholemhub.moneylab.classes.TransactionVM
 import com.gholemhub.moneylab.model.AddRepository.Companion.ImagesCategoryList
 
-import com.gholemhub.moneylab.model.AddRepository.Companion.transactionAddRep
+import com.gholemhub.moneylab.model.AddRepository.Companion.addNewCategory
 import com.gholemhub.moneylab.model.AppRepository
-import com.gholemhub.moneylab.views.MainActivity
-import java.util.*
 
 class AdapterImageCategory: RecyclerView.Adapter<AdapterImageCategory.ViewHolder>() {
 
@@ -38,7 +31,7 @@ class AdapterImageCategory: RecyclerView.Adapter<AdapterImageCategory.ViewHolder
 
         holder.itemView.setOnClickListener {
 
-            transactionAddRep.image = ImagesCategoryList[position].logo
+            addNewCategory.image = ImagesCategoryList[position].logo
 
             //AppRepository.bindingFragmentCreateCategory.tytleImage.setImageResource(ImagesCategoryList[position].logo)
 
